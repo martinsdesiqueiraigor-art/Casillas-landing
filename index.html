@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Casillas App — Calculadora Técnica de Usinagem</title>
+  <meta name="description" content="Calculadora técnica de usinagem offline com 11 módulos. Ideal para torneiros, fresadores e ferramenteiros.">
+  <meta name="theme-color" content="#0d1117">
+  <link rel="icon" href="./assets/icon-192.png">
+  <style>
+    :root {
+      --bg-app: #0d1117;
+      --bg-card: #161b22;
+      --bg-input: #21262d;
+      --bg-elevated: #1c2128;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --text-muted: #6e7681;
+      --border-color: #30363d;
+      --accent-primary: #f0883e;
+      --accent-secondary: #58a6ff;
+      --success: #3fb950;
+      --warning: #d29922;
+      --danger: #f85149;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-app);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+    
+    /* ─── Header ─── */
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 12px 0;
+      z-index: 100;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-logo img {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+    }
+    .header-logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+    .header-cta {
+      background: var(--accent-primary);
+      color: #1a1108;
+      padding: 8px 16px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      transition: filter 0.2s;
+    }
+    .header-cta:active { filter: brightness(0.85); }
+    
+    /* ─── Hero ─── */
+    .hero {
+      padding: 60px 0 40px;
+      text-align: center;
+    }
+    .hero-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 20px;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 40px rgba(240, 136, 62, 0.3);
+    }
+    .hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #f0883e, #58a6ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      margin-bottom: 30px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-badges {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 14px 28px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.15s, filter 0.15s;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary {
+      background: var(--accent-primary);
+      color: #1a1108;
+      box-shadow: 0 4px 20px rgba(240, 136, 62, 0.3);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--accent-secondary);
+      border: 2px solid var(--accent-secondary);
+    }
+    
+    /* ─── Sections ─── */
+    .section {
+      padding: 50px 0;
+      border-top: 1px solid var(--border-color);
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      text-align: center;
+      color: var(--text-secondary);
+      margin-bottom: 36px;
+      font-size: 14px;
+    }
+    
+    /* ─── Módulos ─── */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .module-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-2px);
+    }
+    .module-card .icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .module-card .name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    /* ─── Benefícios ─── */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .benefit-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .benefit-card .icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .benefit-card .title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+    .benefit-card .desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    /* ─── Preço ─── */
+    .price-card {
+      background: linear-gradient(135deg, rgba(240, 136, 62, 0.1), rgba(88, 166, 255, 0.1));
+      border: 2px solid var(--accent-primary);
+      border-radius: 16px;
+      padding: 36px 24px;
+      text-align: center;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .price-old {
+      font-size: 16px;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    .price-current {
+      font-size: 42px;
+      font-weight: 900;
+      color: var(--accent-primary);
+      margin: 8px 0;
+    }
+    .price-discount {
+      display: inline-block;
+      background: var(--success);
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .price-features {
+      list-style: none;
+      text-align: left;
+      margin: 20px 0;
+      display: inline-block;
+    }
+    .price-features li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 6px 0;
+    }
+    .price-features li::before {
+      content: '✅ ';
+      color: var(--success);
+    }
+    
+    /* ─── FAQ ─── */
+    .faq-list {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-question {
+      padding: 16px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .faq-question::after {
+      content: '+';
+      font-size: 20px;
+      color: var(--accent-primary);
+      transition: transform 0.2s;
+    }
+    .faq-item.open .faq-question::after {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s;
+      padding: 0 20px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding: 0 20px 16px;
+    }
+    
+    /* ─── Contato ─── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-primary);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:active {
+      transform: scale(0.98);
+      border-color: var(--accent-primary);
+    }
+    .contact-card .icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .contact-card .title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .contact-card .subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+    
+    /* ─── Footer ─── */
+    .footer {
+      padding: 30px 0;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      color: var(--accent-primary);
+    }
+    
+    /* ─── Floating WhatsApp ─── */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25d366;
+      color: #fff;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      text-decoration: none;
+      z-index: 200;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
+      50% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.7); }
+    }
+    
+    @media (max-width: 500px) {
+      .hero h1 { font-size: 26px; }
+      .hero p { font-size: 14px; }
+      .section-title { font-size: 20px; }
+      .price-current { font-size: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="container header-content">
+    <div class="header-logo">
+      <img src="./assets/icon-192.png" alt="Casillas">
+      <span class="header-logo-text">Casillas</span>
+    </div>
+    <a href="#comprar" class="header-cta">Comprar</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <img src="./assets/icon-512.png" alt="Casillas App" class="hero-icon">
+    <h1>Calculadora Técnica de Usinagem</h1>
+    <p>11 módulos offline para torneiros, fresadores e ferramenteiros. Cálculos precisos na palma da mão.</p>
+    
+    <div class="hero-badges">
+      <span class="badge">✅ 100% Offline</span>
+      <span class="badge">📱 Android</span>
+      <span class="badge">⚙️ 11 Módulos</span>
+    </div>
+    
+    <div class="hero-buttons">
+      <a href="./download/Casillas.apk" download class="btn btn-primary">
+        📱 Baixar APK
+      </a>
+      <a href="#comprar" class="btn btn-secondary">
+        💬 Comprar agora
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULOS -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">🧮 11 Módulos Técnicos</h2>
+    <p class="section-subtitle">Tudo o que você precisa em um só app</p>
+    
+    <div class="modules-grid">
+      <div class="module-card"><span class="icon">📐</span><span class="name">Trigonometria</span></div>
+      <div class="module-card"><span class="icon">📏</span><span class="name">Conicidade</span></div>
+      <div class="module-card"><span class="icon">⬡</span><span class="name">Polígonos</span></div>
+      <div class="module-card"><span class="icon">⚫</span><span class="name">Furação Circular</span></div>
+      <div class="module-card"><span class="icon">🌀</span><span class="name">Roscas</span></div>
+      <div class="module-card"><span class="icon">📊</span><span class="name">Tolerâncias ISO</span></div>
+      <div class="module-card"><span class="icon">⚡</span><span class="name">Potência de Corte</span></div>
+      <div class="module-card"><span class="icon">🔧</span><span class="name">Chaveta DIN</span></div>
+      <div class="module-card"><span class="icon">🎯</span><span class="name">Conicidades Padrão</span></div>
+      <div class="module-card"><span class="icon">🖥️</span><span class="name">Programação CNC</span></div>
+      <div class="module-card"><span class="icon">💬</span><span class="name">Consultoria</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFÍCIOS -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">✨ Por que escolher o Casillas?</h2>
+    <p class="section-subtitle">Feito para quem trabalha de verdade</p>
+    
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <span class="icon">📴</span>
+        <div class="title">100% Offline</div>
+        <div class="desc">Funciona sem internet. Perfeito para oficinas sem Wi-Fi.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">📱</span>
+        <div class="title">Mobile-first</div>
+        <div class="desc">Interface otimizada para uso em campo, com teclado customizado.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">📐</span>
+        <div class="title">Normas técnicas</div>
+        <div class="desc">Cálculos seguem ISO, DIN e práticas de oficina.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">⚡</span>
+        <div class="title">Rápido</div>
+        <div class="desc">Respostas instantâneas, sem espera, sem travamento.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">🔄</span>
+        <div class="title">Atualizações</div>
+        <div class="desc">Novos módulos e melhorias gratuitas para clientes.</div>
+      </div>
+      <div class="benefit-card">
+        <span class="icon">💬</span>
+        <div class="title">Suporte</div>
+        <div class="desc">Atendimento direto via WhatsApp com o desenvolvedor.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇO -->
+<section class="section" id="comprar">
+  <div class="container">
+    <h2 class="section-title">💰 Licença Vitalícia</h2>
+    <p class="section-subtitle">Pague uma vez, use para sempre</p>
+    
+    <div class="price-card">
+      <div class="price-old">De R$ 149,90</div>
+      <div class="price-current">R$ 49,90</div>
+      <div class="price-discount">67% OFF</div>
+      
+      <ul class="price-features">
+        <li>Acesso a todos os 11 módulos</li>
+        <li>Funciona 100% offline</li>
+        <li>Ativação em até 3 aparelhos</li>
+        <li>Atualizações gratuitas</li>
+        <li>Suporte via WhatsApp</li>
+      </ul>
+      
+      <a href="https://wa.me/5519996816755?text=Ol%C3%A1!%20Quero%20comprar%20a%20licen%C3%A7a%20do%20Casillas%20App" 
+         class="btn btn-primary" style="width: 100%; justify-content: center;">
+        💬 Comprar via WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">❓ Perguntas frequentes</h2>
+    <p class="section-subtitle">Tire suas dúvidas</p>
+    
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Funciona no iPhone?</div>
+        <div class="faq-answer">Sim! O Casillas é um PWA (Progressive Web App) e pode ser instalado no iPhone. Você abre o link no Safari e adiciona à tela de início. Ele funciona como um app nativo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Preciso de internet para usar?</div>
+        <div class="faq-answer">Não! O app funciona 100% offline após a instalação. Você pode usar em qualquer lugar, mesmo sem sinal.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Como ativo o app?</div>
+        <div class="faq-answer">Após a compra, você recebe um código de ativação no formato CASILLAS-XXXX-XXXX. Digite no app na tela de ativação e pronto!</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Posso usar em vários celulares?</div>
+        <div class="faq-answer">Sim! Cada código funciona em até 3 aparelhos diferentes. Se você trocar de celular, é só ativar com o mesmo código.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Tem teste grátis?</div>
+        <div class="faq-answer">Sim! Você tem 30 dias de teste gratuito com todos os 11 módulos liberados. Após esse período, apenas os módulos básicos continuam acessíveis.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Como recebo o APK?</div>
+        <div class="faq-answer">Após a confirmação do pagamento via PIX, você recebe o arquivo APK e o código de ativação pelo WhatsApp. Basta instalar e ativar!</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Tem garantia?</div>
+        <div class="faq-answer">Sim! Oferecemos 7 dias de garantia. Se você não gostar do app, devolvemos seu dinheiro.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">💬 Fale conosco</h2>
+    <p class="section-subtitle">Estamos prontos para ajudar</p>
+    
+    <div class="contact-grid">
+      <a href="https://wa.me/5519996816755" class="contact-card" target="_blank">
+        <span class="icon">📱</span>
+        <div class="title">WhatsApp</div>
+        <div class="subtitle">+55 19 99681-6755</div>
+      </a>
+      <a href="https://instagram.com/casillas_usinagembr" class="contact-card" target="_blank">
+        <span class="icon">📷</span>
+        <div class="title">Instagram</div>
+        <div class="subtitle">@casillas_usinagembr</div>
+      </a>
+      <a href="https://youtube.com/@casillas_usinagembr" class="contact-card" target="_blank">
+        <span class="icon">🎥</span>
+        <div class="title">YouTube</div>
+        <div class="subtitle">@casillas_usinagembr</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 <strong>Casillas App</strong> — Calculadora Técnica de Usinagem</p>
+    <p style="margin-top: 6px;">
+      <a href="https://wa.me/5519996816755">WhatsApp</a> • 
+      <a href="https://instagram.com/casillas_usinagembr">Instagram</a> • 
+      <a href="https://youtube.com/@casillas_usinagembr">YouTube</a>
+    </p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/5519996816755" class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp">
+  💬
+</a>
+
+<!-- SCRIPT FAQ -->
+<script>
+  document.querySelectorAll('.faq-question').forEach((q) => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      item.classList.toggle('open');
+    });
+  });
+</script>
+
+</body>
+</html>
