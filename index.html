@@ -420,23 +420,63 @@
 <!-- HERO -->
 <section class="hero">
   <div class="container">
-    <img src="./assets/icon-512.png" alt="Casillas App" class="hero-icon">
-    <h1>Calculadora Técnica de Usinagem</h1>
-    <p>11 módulos offline para torneiros, fresadores e ferramenteiros. Cálculos precisos na palma da mão.</p>
-    
-    <div class="hero-badges">
-      <span class="badge">✅ 100% Offline</span>
-      <span class="badge">📱 Android</span>
-      <span class="badge">⚙️ 11 Módulos</span>
+    <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto;">
+      <div style="flex: 1; min-width: 280px;">
+        <h1>Calculadora Técnica de Usinagem</h1>
+        <p>12 módulos offline para torneiros, fresadores e ferramenteiros. Cálculos precisos na palma da mão.</p>
+        
+        <div class="hero-badges">
+          <span class="badge">✅ 100% Offline</span>
+          <span class="badge">📱 Android</span>
+          <span class="badge">⚙️ 12 Módulos</span>
+        </div>
+        
+        <div class="hero-buttons">
+          <a href="./download/Casillas.apk" download class="btn btn-primary">
+            📱 Baixar APK
+          </a>
+          <a href="#comprar" class="btn btn-secondary">
+            💬 Comprar agora
+          </a>
+        </div>
+      </div>
+      
+      <div style="flex: 0 0 320px; max-width: 320px;">
+        <img src="./assets/hero-mobile.png" alt="Casillas App no celular" style="width: 100%; height: auto; border-radius: 24px; box-shadow: 0 20px 60px rgba(240, 136, 62, 0.3);">
+      </div>
     </div>
-    
-    <div class="hero-buttons">
-      <a href="./download/Casillas.apk" download class="btn btn-primary">
-        📱 Baixar APK
-      </a>
-      <a href="#comprar" class="btn btn-secondary">
-        💬 Comprar agora
-      </a>
+  </div>
+</section>
+
+<!-- VEJA EM AÇÃO -->
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">🔧 Veja em ação</h2>
+    <p class="section-subtitle">Aprenda na prática. Calcule com precisão.</p>
+    <img src="./assets/quadrinho-didatico.png" alt="Quadrinhos didáticos" style="width: 100%; max-width: 900px; margin: 0 auto; display: block; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.4);">
+    <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 12px; font-style: italic;">8 exemplos práticos do dia a dia na oficina</p>
+  </div>
+</section>
+
+<!-- PERDE TEMPO -->
+<section class="section">
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 280px;">
+        <h2 style="font-size: 28px; font-weight: 800; color: var(--accent-primary); margin-bottom: 16px;">Você perde tempo com isso?</h2>
+        <ul style="list-style: none; padding: 0;">
+          <li style="padding: 8px 0;">❌ Calculando RPM na mão</li>
+          <li style="padding: 8px 0;">❌ Errando ângulo de cone</li>
+          <li style="padding: 8px 0;">❌ Procurando fórmula de rosca</li>
+          <li style="padding: 8px 0;">❌ Refazendo conta de tolerância</li>
+          <li style="padding: 8px 0;">❌ Esquecendo conversão de medida</li>
+        </ul>
+        <p style="margin-top: 20px;"><strong>O Casillas resolve tudo isso em segundos.</strong></p>
+        <a href="./download/Casillas.apk" download class="btn btn-primary" style="margin-top: 16px;">📱 Baixar APK</a>
+      </div>
+      <div style="flex: 0 0 350px; max-width: 350px;">
+        <img src="./assets/perde-tempo.png" alt="Você perde tempo com isso?" style="width: 100%; border-radius: 16px;">
+      </div>
     </div>
   </div>
 </section>
@@ -444,8 +484,9 @@
 <!-- MÓDULOS -->
 <section class="section">
   <div class="container">
-    <h2 class="section-title">🧮 11 Módulos Técnicos</h2>
+    <h2 class="section-title">🧮 12 Módulos Técnicos</h2>
     <p class="section-subtitle">Tudo o que você precisa em um só app</p>
+    <img src="./assets/modulos-12.png" alt="12 módulos do Casillas App" style="width: 100%; max-width: 700px; margin: 0 auto 32px; display: block; border-radius: 16px;">
     
     <div class="modules-grid">
       <div class="module-card"><span class="icon">📐</span><span class="name">Trigonometria</span></div>
@@ -458,6 +499,7 @@
       <div class="module-card"><span class="icon">🔧</span><span class="name">Chaveta DIN</span></div>
       <div class="module-card"><span class="icon">🎯</span><span class="name">Conicidades Padrão</span></div>
       <div class="module-card"><span class="icon">🖥️</span><span class="name">Programação CNC</span></div>
+      <div class="module-card"><span class="icon">📖</span><span class="name">Guia de Programação</span></div>
       <div class="module-card"><span class="icon">💬</span><span class="name">Consultoria</span></div>
     </div>
   </div>
@@ -513,10 +555,10 @@
     <div class="price-card">
       <div class="price-old">De R$ 49,90</div>
       <div class="price-current">R$ 19,90</div>
-      <div class="price-discount">60% OFF</div>
+      <div class="price-discount">67% OFF</div>
       
       <ul class="price-features">
-        <li>Acesso a todos os 11 módulos</li>
+        <li>Acesso a todos os 12 módulos</li>
         <li>Funciona 100% offline</li>
         <li>Ativação em até 3 aparelhos</li>
         <li>Atualizações gratuitas</li>
@@ -540,7 +582,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <div class="faq-question">Funciona no iPhone?</div>
-        <div class="faq-answer">Sim! O Casillas é um PWA (Progressive Web App) e pode ser instalado no iPhone. Você abre o link  no Safari e adiciona à tela de início. Ele funciona como um app nativo.</div>
+        <div class="faq-answer">Sim! O Casillas é um PWA (Progressive Web App) e pode ser instalado no iPhone. Você abre o link no Safari e adiciona à tela de início. Ele funciona como um app nativo.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">Preciso de internet para usar?</div>
@@ -556,7 +598,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-question">Tem teste grátis?</div>
-        <div class="faq-answer">Sim! Você tem 30 dias de teste gratuito com todos os 11 módulos liberados. Após esse período, apenas os módulos básicos continuam acessíveis.</div>
+        <div class="faq-answer">Sim! Você tem 30 dias de teste gratuito com todos os 12 módulos liberados. Após esse período, o app exige ativação para continuar usando.</div>
       </div>
       <div class="faq-item">
         <div class="faq-question">Como recebo o APK?</div>
@@ -582,15 +624,20 @@
         <div class="title">WhatsApp</div>
         <div class="subtitle">+55 19 99681-6755</div>
       </a>
+      <a href="https://chat.whatsapp.com/Idw4zuVdlOW1oZf3DZLZ75" class="contact-card" target="_blank">
+        <span class="icon">👥</span>
+        <div class="title">Grupo WhatsApp</div>
+        <div class="subtitle">Casillas - Usinagem BR</div>
+      </a>
       <a href="https://instagram.com/casillas_usinagem.br" class="contact-card" target="_blank">
         <span class="icon">📷</span>
         <div class="title">Instagram</div>
         <div class="subtitle">@casillas_usinagem.br</div>
       </a>
-      <a href="https://youtube.com/@casillas_usinagembr" class="contact-card" target="_blank">
+      <a href="https://youtube.com/@casillasusinagembr" class="contact-card" target="_blank">
         <span class="icon">🎥</span>
         <div class="title">YouTube</div>
-        <div class="subtitle">@casillas_usinagembr</div>
+        <div class="subtitle">@casillasusinagembr</div>
       </a>
     </div>
   </div>
@@ -603,7 +650,7 @@
     <p style="margin-top: 6px;">
       <a href="https://wa.me/5519996816755">WhatsApp</a> • 
       <a href="https://instagram.com/casillas_usinagem.br">Instagram</a> • 
-      <a href="https://youtube.com/@casillas_usinagembr">YouTube</a>
+      <a href="https://youtube.com/@casillasusinagembr">YouTube</a>
     </p>
   </div>
 </footer>
