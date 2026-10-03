@@ -1,674 +1,340 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casillas App — Calculadora Técnica de Usinagem</title>
-  <meta name="description" content="Calculadora técnica de usinagem offline com 11 módulos. Ideal para torneiros, fresadores e ferramenteiros.">
-  <meta name="theme-color" content="#0d1117">
-  <link rel="icon" href="./assets/icon-192.png">
-  <style>
-    :root {
-      --bg-app: #0d1117;
-      --bg-card: #161b22;
-      --bg-input: #21262d;
-      --bg-elevated: #1c2128;
-      --text-primary: #e6edf3;
-      --text-secondary: #8b949e;
-      --text-muted: #6e7681;
-      --border-color: #30363d;
-      --accent-primary: #f0883e;
-      --accent-secondary: #58a6ff;
-      --success: #3fb950;
-      --warning: #d29922;
-      --danger: #f85149;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg-app);
-      color: var(--text-primary);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
-    
-    /* ─── Header ─── */
-    .header {
-      position: sticky;
-      top: 0;
-      background: rgba(13, 17, 23, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-color);
-      padding: 12px 0;
-      z-index: 100;
-    }
-    .header-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .header-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .header-logo img {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-    }
-    .header-logo-text {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--accent-primary);
-    }
-    .header-cta {
-      background: var(--accent-primary);
-      color: #1a1108;
-      padding: 8px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
-      transition: filter 0.2s;
-    }
-    .header-cta:active { filter: brightness(0.85); }
-    
-    /* ─── Hero ─── */
-    .hero {
-      padding: 60px 0 40px;
-      text-align: center;
-    }
-    .hero-icon {
-      width: 100px;
-      height: 100px;
-      border-radius: 20px;
-      margin: 0 auto 20px;
-      box-shadow: 0 10px 40px rgba(240, 136, 62, 0.3);
-    }
-    .hero h1 {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      background: linear-gradient(135deg, #f0883e, #58a6ff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      margin-bottom: 30px;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .hero-badges {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
-    }
-    .badge {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      color: var(--text-secondary);
-    }
-    .hero-buttons {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    .btn {
-      padding: 14px 28px;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 700;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.15s, filter 0.15s;
-    }
-    .btn:active { transform: scale(0.97); }
-    .btn-primary {
-      background: var(--accent-primary);
-      color: #1a1108;
-      box-shadow: 0 4px 20px rgba(240, 136, 62, 0.3);
-    }
-    .btn-secondary {
-      background: transparent;
-      color: var(--accent-secondary);
-      border: 2px solid var(--accent-secondary);
-    }
-    
-    /* ─── Sections ─── */
-    .section {
-      padding: 50px 0;
-      border-top: 1px solid var(--border-color);
-    }
-    .section-title {
-      font-size: 24px;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 12px;
-    }
-    .section-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 36px;
-      font-size: 14px;
-    }
-    
-    /* ─── Módulos ─── */
-    .modules-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 12px;
-    }
-    .module-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      padding: 16px 12px;
-      text-align: center;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .module-card:hover {
-      border-color: var(--accent-primary);
-      transform: translateY(-2px);
-    }
-    .module-card .icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .module-card .name {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    
-    /* ─── Benefícios ─── */
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-    .benefit-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-    }
-    .benefit-card .icon {
-      font-size: 24px;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .benefit-card .title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: var(--text-primary);
-    }
-    .benefit-card .desc {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-    }
-    
-    /* ─── Preço ─── */
-    .price-card {
-      background: linear-gradient(135deg, rgba(240, 136, 62, 0.1), rgba(88, 166, 255, 0.1));
-      border: 2px solid var(--accent-primary);
-      border-radius: 16px;
-      padding: 36px 24px;
-      text-align: center;
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .price-old {
-      font-size: 16px;
-      color: var(--text-muted);
-      text-decoration: line-through;
-    }
-    .price-current {
-      font-size: 42px;
-      font-weight: 900;
-      color: var(--accent-primary);
-      margin: 8px 0;
-    }
-    .price-discount {
-      display: inline-block;
-      background: var(--success);
-      color: #fff;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-    .price-features {
-      list-style: none;
-      text-align: left;
-      margin: 20px 0;
-      display: inline-block;
-    }
-    .price-features li {
-      font-size: 14px;
-      color: var(--text-secondary);
-      padding: 6px 0;
-    }
-    .price-features li::before {
-      content: '✅ ';
-      color: var(--success);
-    }
-    
-    /* ─── FAQ ─── */
-    .faq-list {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .faq-item {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      margin-bottom: 10px;
-      overflow: hidden;
-    }
-    .faq-question {
-      padding: 16px 20px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      user-select: none;
-    }
-    .faq-question::after {
-      content: '+';
-      font-size: 20px;
-      color: var(--accent-primary);
-      transition: transform 0.2s;
-    }
-    .faq-item.open .faq-question::after {
-      transform: rotate(45deg);
-    }
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s;
-      padding: 0 20px;
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-    .faq-item.open .faq-answer {
-      max-height: 300px;
-      padding: 0 20px 16px;
-    }
-    
-    /* ─── Contato ─── */
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-    .contact-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text-primary);
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .contact-card:active {
-      transform: scale(0.98);
-      border-color: var(--accent-primary);
-    }
-    .contact-card .icon {
-      font-size: 32px;
-      margin-bottom: 8px;
-      display: block;
-    }
-    .contact-card .title {
-      font-size: 14px;
-      font-weight: 700;
-    }
-    .contact-card .subtitle {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 4px;
-    }
-    
-    /* ─── Footer ─── */
-    .footer {
-      padding: 30px 0;
-      text-align: center;
-      border-top: 1px solid var(--border-color);
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .footer a {
-      color: var(--text-secondary);
-      text-decoration: none;
-    }
-    .footer a:hover {
-      color: var(--accent-primary);
-    }
-    
-    /* ─── Floating WhatsApp ─── */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: #25d366;
-      color: #fff;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-      text-decoration: none;
-      z-index: 200;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); }
-      50% { box-shadow: 0 6px 30px rgba(37, 211, 102, 0.7); }
-    }
-    
-    @media (max-width: 500px) {
-      .hero h1 { font-size: 26px; }
-      .hero p { font-size: 14px; }
-      .section-title { font-size: 20px; }
-      .price-current { font-size: 36px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casillas — Calculadora Técnica de Usinagem | 12 Módulos Offline</title>
+    <meta name="description" content="Chega de calcular na mão. 12 calculadoras de usinagem no seu bolso. Trigonometria, roscas, tolerâncias ISO, programação CNC e mais. Teste grátis por 30 dias.">
+    <meta name="theme-color" content="#0d1117">
+    <meta property="og:title" content="Casillas — Calculadora Técnica de Usinagem">
+    <meta property="og:description" content="12 calculadoras de usinagem no seu bolso. Teste grátis por 30 dias.">
+    <meta property="og:image" content="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/icons/icon-512.png">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/icons/icon-192.png">
+    <link rel="apple-touch-icon" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/icons/icon-192.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-app: #0d1117;
+            --bg-card: #161b22;
+            --bg-input: #21262d;
+            --bg-elevated: #1c2128;
+            --text-primary: #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+            --border-color: #30363d;
+            --accent-primary: #f0883e;
+            --accent-secondary: #58a6ff;
+            --success: #3fb950;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+        }
+        body {
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+        }
+        .bg-casillas-card { background-color: var(--bg-card); }
+        .bg-casillas-input { background-color: var(--bg-input); }
+        .text-casillas-orange { color: var(--accent-primary); }
+        .text-casillas-blue { color: var(--accent-secondary); }
+        .bg-casillas-orange { background-color: var(--accent-primary); }
+        .border-casillas { border-color: var(--border-color); }
+        .text-secondary { color: var(--text-secondary); }
+        .text-muted { color: var(--text-muted); }
+        .btn-primary-casillas {
+            background: var(--accent-primary);
+            color: #1a1108;
+            font-weight: 700;
+            transition: filter 120ms ease;
+        }
+        .btn-primary-casillas:hover { filter: brightness(0.9); }
+        .btn-outline-casillas {
+            background: transparent;
+            color: var(--accent-secondary);
+            border: 1px solid var(--accent-secondary);
+            font-weight: 600;
+            transition: background 120ms ease, color 120ms ease;
+        }
+        .btn-outline-casillas:hover {
+            background: var(--accent-secondary);
+            color: #fff;
+        }
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .kpi-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px 8px;
+            border-right: 1px solid var(--border-color);
+        }
+        .kpi-card:last-child { border-right: none; }
+        .kpi-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .kpi-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: var(--font-mono);
+        }
+        .pain-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg-input);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 6px;
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen">
 
-<!-- HEADER -->
-<header class="header">
-  <div class="container header-content">
-    <div class="header-logo">
-      <img src="./assets/icon-192.png" alt="Casillas">
-      <span class="header-logo-text">Casillas</span>
-    </div>
-    <a href="#comprar" class="header-cta">Comprar</a>
-  </div>
-</header>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container">
-    <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap; max-width: 1100px; margin: 0 auto;">
-      <div style="flex: 1; min-width: 280px;">
-        <h1>Calculadora Técnica de Usinagem</h1>
-        <p>12 módulos offline para torneiros, fresadores e ferramenteiros. Cálculos precisos na palma da mão.</p>
-        
-        <div class="hero-badges">
-          <span class="badge">✅ 100% Offline</span>
-          <span class="badge">📱 Android</span>
-          <span class="badge">⚙️ 12 Módulos</span>
+    <!-- Navbar -->
+    <header class="flex justify-between items-center p-4 max-w-7xl mx-auto border-b border-casillas">
+        <div class="flex items-center gap-3">
+            <img src="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/icons/icon-192.png" alt="Casillas" class="w-9 h-9 rounded-lg">
+            <span class="text-xl font-bold text-casillas-orange">Casillas</span>
         </div>
-        
-        <div class="hero-buttons">
-          <a href="./download/Casillas.apk" download class="btn btn-primary">
-            📱 Baixar APK
-          </a>
-          <a href="#comprar" class="btn btn-secondary">
-            💬 Comprar agora
-          </a>
+        <nav class="hidden md:flex gap-6 text-secondary text-sm">
+            <a href="#modulos" class="hover:text-casillas-orange transition">Módulos</a>
+            <a href="#pratica" class="hover:text-casillas-orange transition">Aprenda</a>
+            <a href="#planos" class="hover:text-casillas-orange transition">Planos</a>
+            <a href="#consultoria" class="hover:text-casillas-orange transition">Consultoria</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <a href="https://www.instagram.com/casillas_usinagem.br" target="_blank" aria-label="Instagram" class="text-secondary hover:text-casillas-orange transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/" target="_blank" class="btn-primary-casillas px-4 py-2 rounded-lg text-sm">
+                Abrir App
+            </a>
         </div>
-      </div>
-      
-      <div style="flex: 0 0 320px; max-width: 320px;">
-        <img src="./assets/hero-mobile.png" alt="Casillas App no celular" style="width: 100%; height: auto; border-radius: 24px; box-shadow: 0 20px 60px rgba(240, 136, 62, 0.3);">
-      </div>
+    </header>
+
+    <!-- KPI Strip -->
+    <div class="kpi-strip max-w-7xl mx-auto">
+        <div class="kpi-card">
+            <span class="kpi-label">Módulos</span>
+            <span class="kpi-value">12</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Trial</span>
+            <span class="kpi-value">30 dias</span>
+        </div>
+        <div class="kpi-card">
+            <span class="kpi-label">Offline</span>
+            <span class="kpi-value">✓</span>
+        </div>
     </div>
-  </div>
-</section>
 
-<!-- VEJA EM AÇÃO -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">🔧 Veja em ação</h2>
-    <p class="section-subtitle">Aprenda na prática. Calcule com precisão.</p>
-    <img src="./assets/quadrinho-didatico.png" alt="Quadrinhos didáticos" style="width: 100%; max-width: 900px; margin: 0 auto; display: block; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.4);">
-    <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 12px; font-style: italic;">8 exemplos práticos do dia a dia na oficina</p>
-  </div>
-</section>
+    <!-- Hero -->
+    <section class="max-w-7xl mx-auto px-4 py-16 md:py-20 flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 text-center md:text-left">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+                Chega de calcular <span class="text-casillas-orange">na mão.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-secondary mb-8">
+                12 calculadoras de usinagem no seu bolso. Precisão, agilidade e resultado na palma da sua mão. Funciona 100% offline.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/" target="_blank" class="btn-primary-casillas px-8 py-4 rounded-lg text-lg text-center">
+                    Testar Grátis por 30 Dias
+                </a>
+                <a href="https://wa.me/5519996816755" target="_blank" class="btn-outline-casillas px-8 py-4 rounded-lg text-lg text-center">
+                    Falar com Especialista
+                </a>
+            </div>
+            <p class="text-xs text-muted mt-4">Sem cartão de crédito. Licença vitalícia após o trial.</p>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+            <img src="print-cnc.png" alt="App Casillas - Programação CNC" class="max-h-[600px] rounded-3xl shadow-2xl border border-casillas">
+        </div>
+    </section>
 
-<!-- PERDE TEMPO -->
-<section class="section">
-  <div class="container">
-    <div style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
-      <div style="flex: 1; min-width: 280px;">
-        <h2 style="font-size: 28px; font-weight: 800; color: var(--accent-primary); margin-bottom: 16px;">Você perde tempo com isso?</h2>
-        <ul style="list-style: none; padding: 0;">
-          <li style="padding: 8px 0;">❌ Calculando RPM na mão</li>
-          <li style="padding: 8px 0;">❌ Errando ângulo de cone</li>
-          <li style="padding: 8px 0;">❌ Procurando fórmula de rosca</li>
-          <li style="padding: 8px 0;">❌ Refazendo conta de tolerância</li>
-          <li style="padding: 8px 0;">❌ Esquecendo conversão de medida</li>
-        </ul>
-        <p style="margin-top: 20px;"><strong>O Casillas resolve tudo isso em segundos.</strong></p>
-        <a href="./download/Casillas.apk" download class="btn btn-primary" style="margin-top: 16px;">📱 Baixar APK</a>
-      </div>
-      <div style="flex: 0 0 350px; max-width: 350px;">
-        <img src="./assets/perde-tempo.png" alt="Você perde tempo com isso?" style="width: 100%; border-radius: 16px;">
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Dores -->
+    <section class="bg-casillas-card py-20 border-y border-casillas">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-12">
+                Você <span class="text-casillas-orange">perde tempo</span> com isso?
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="pain-item"><span class="text-casillas-orange text-xl">✕</span> Calculando RPM na mão</div>
+                <div class="pain-item"><span class="text-casillas-orange text-xl">✕</span> Errando ângulo de cone</div>
+                <div class="pain-item"><span class="text-casillas-orange text-xl">✕</span> Procurando fórmula de rosca</div>
+                <div class="pain-item"><span class="text-casillas-orange text-xl">✕</span> Refazendo conta de tolerância</div>
+                <div class="pain-item"><span class="text-casillas-orange text-xl">✕</span> Chutando avanço de corte</div>
+                <div class="pain-item"><span class="text-casillas-orange text-xl">✕</span> Esquecendo conversão de medida</div>
+            </div>
+            <p class="text-center text-casillas-orange font-bold mt-8 text-lg">Tem jeito melhor →</p>
+        </div>
+    </section>
 
-<!-- MÓDULOS -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">🧮 12 Módulos Técnicos</h2>
-    <p class="section-subtitle">Tudo o que você precisa em um só app</p>
-    <img src="./assets/modulos-12.png" alt="12 módulos do Casillas App" style="width: 100%; max-width: 700px; margin: 0 auto 32px; display: block; border-radius: 16px;">
-    
-    <div class="modules-grid">
-      <div class="module-card"><span class="icon">📐</span><span class="name">Trigonometria</span></div>
-      <div class="module-card"><span class="icon">📏</span><span class="name">Conicidade</span></div>
-      <div class="module-card"><span class="icon">⬡</span><span class="name">Polígonos</span></div>
-      <div class="module-card"><span class="icon">⚫</span><span class="name">Furação Circular</span></div>
-      <div class="module-card"><span class="icon">🌀</span><span class="name">Roscas</span></div>
-      <div class="module-card"><span class="icon">📊</span><span class="name">Tolerâncias ISO</span></div>
-      <div class="module-card"><span class="icon">⚡</span><span class="name">Potência de Corte</span></div>
-      <div class="module-card"><span class="icon">🔧</span><span class="name">Chaveta DIN</span></div>
-      <div class="module-card"><span class="icon">🎯</span><span class="name">Conicidades Padrão</span></div>
-      <div class="module-card"><span class="icon">🖥️</span><span class="name">Programação CNC</span></div>
-      <div class="module-card"><span class="icon">📖</span><span class="name">Guia de Programação</span></div>
-      <div class="module-card"><span class="icon">💬</span><span class="name">Consultoria</span></div>
-    </div>
-  </div>
-</section>
+    <!-- 12 Módulos -->
+    <section id="modulos" class="max-w-7xl mx-auto px-4 py-20">
+        <h2 class="text-3xl md:text-5xl font-extrabold text-center mb-4">
+            <span class="text-casillas-orange">12 Módulos.</span> 1 App.
+        </h2>
+        <p class="text-secondary text-center mb-12">Tudo no seu bolso. Grátis para testar.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">01</div>
+                <h3 class="font-bold text-sm mb-1">TRIGONOMETRIA</h3>
+                <p class="text-xs text-secondary">Ângulos, catetos e hipotenusa</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">02</div>
+                <h3 class="font-bold text-sm mb-1">CONICIDADE</h3>
+                <p class="text-xs text-secondary">Ângulo do cone e conicidade</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">03</div>
+                <h3 class="font-bold text-sm mb-1">POLÍGONOS</h3>
+                <p class="text-xs text-secondary">Hexágonos, quadrados e mais</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">04</div>
+                <h3 class="font-bold text-sm mb-1">FURAÇÃO CIRCULAR</h3>
+                <p class="text-xs text-secondary">Coordenadas X/Y e PCD</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">05</div>
+                <h3 class="font-bold text-sm mb-1">ROSCAS</h3>
+                <p class="text-xs text-secondary">Métrica, Whitworth e NPT</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">06</div>
+                <h3 class="font-bold text-sm mb-1">TOLERÂNCIAS ISO</h3>
+                <p class="text-xs text-secondary">h6, H7, limites e ajustes</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">07</div>
+                <h3 class="font-bold text-sm mb-1">POTÊNCIA DE CORTE</h3>
+                <p class="text-xs text-secondary">Verificação em kW</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">08</div>
+                <h3 class="font-bold text-sm mb-1">CHAVETA DIN 6885</h3>
+                <p class="text-xs text-secondary">Eixos e ranhuras</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">09</div>
+                <h3 class="font-bold text-sm mb-1">CONICIDADES PADRÃO</h3>
+                <p class="text-xs text-secondary">Morse CM1 a CM6</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">10</div>
+                <h3 class="font-bold text-sm mb-1">PROGRAMAÇÃO CNC</h3>
+                <p class="text-xs text-secondary">RPM, avanço e Macro B</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">11</div>
+                <h3 class="font-bold text-sm mb-1">GUIA DE PROGRAMAÇÃO</h3>
+                <p class="text-xs text-secondary">Códigos G prontos</p>
+            </div>
+            <div class="bg-casillas-card p-5 rounded-xl border border-casillas hover:border-casillas-orange transition">
+                <div class="text-casillas-orange font-mono text-sm mb-2">12</div>
+                <h3 class="font-bold text-sm mb-1">CONSULTORIA</h3>
+                <p class="text-xs text-secondary">Suporte via WhatsApp</p>
+            </div>
+        </div>
+    </section>
 
-<!-- BENEFÍCIOS -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">✨ Por que escolher o Casillas?</h2>
-    <p class="section-subtitle">Feito para quem trabalha de verdade</p>
-    
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <span class="icon">📴</span>
-        <div class="title">100% Offline</div>
-        <div class="desc">Funciona sem internet. Perfeito para oficinas sem Wi-Fi.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="icon">📱</span>
-        <div class="title">Mobile-first</div>
-        <div class="desc">Interface otimizada para uso em campo, com teclado customizado.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="icon">📐</span>
-        <div class="title">Normas técnicas</div>
-        <div class="desc">Cálculos seguem ISO, DIN e práticas de oficina.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="icon">⚡</span>
-        <div class="title">Rápido</div>
-        <div class="desc">Respostas instantâneas, sem espera, sem travamento.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="icon">🔄</span>
-        <div class="title">Atualizações</div>
-        <div class="desc">Novos módulos e melhorias gratuitas para clientes.</div>
-      </div>
-      <div class="benefit-card">
-        <span class="icon">💬</span>
-        <div class="title">Suporte</div>
-        <div class="desc">Atendimento direto via WhatsApp com o desenvolvedor.</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Aprenda na Prática (Quadrinhos) -->
+    <section id="pratica" class="bg-casillas-card py-20 border-y border-casillas">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-4">
+                Aprenda na <span class="text-casillas-orange">prática.</span>
+            </h2>
+            <p class="text-secondary text-center mb-12">Não entregamos apenas o resultado. Mostramos o caminho.</p>
+            <div class="rounded-2xl overflow-hidden border border-casillas">
+                <img src="quadrinhos-didaticos.png" alt="Quadrinhos Didáticos Casillas" class="w-full">
+            </div>
+        </div>
+    </section>
 
-<!-- PREÇO -->
-<section class="section" id="comprar">
-  <div class="container">
-    <h2 class="section-title">💰 Licença Vitalícia</h2>
-    <p class="section-subtitle">Pague uma vez, use para sempre</p>
-    
-    <div class="price-card">
-      <div class="price-old">De R$ 49,90</div>
-      <div class="price-current">R$ 19,90</div>
-      <div class="price-discount">67% OFF</div>
-      
-      <ul class="price-features">
-        <li>Acesso a todos os 12 módulos</li>
-        <li>Funciona 100% offline</li>
-        <li>Ativação em até 3 aparelhos</li>
-        <li>Atualizações gratuitas</li>
-        <li>Suporte via WhatsApp</li>
-      </ul>
-      
-      <a href="https://wa.me/5519996816755?text=Ol%C3%A1!%20Quero%20comprar%20a%20licen%C3%A7a%20do%20Casillas%20App" 
-         class="btn btn-primary" style="width: 100%; justify-content: center;">
-        💬 Comprar via WhatsApp
-      </a>
-    </div>
-  </div>
-</section>
+    <!-- Instagram -->
+    <section class="max-w-4xl mx-auto px-4 py-20 text-center">
+        <h2 class="text-3xl font-bold mb-4">Veja exemplos reais no Instagram</h2>
+        <p class="text-secondary mb-8">Dicas, cálculos e casos práticos de usinagem todos os dias.</p>
+        <a href="https://www.instagram.com/casillas_usinagem.br" target="_blank" class="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            Seguir @casillas_usinagem.br
+        </a>
+    </section>
 
-<!-- FAQ -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">❓ Perguntas frequentes</h2>
-    <p class="section-subtitle">Tire suas dúvidas</p>
-    
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question">Funciona no iPhone?</div>
-        <div class="faq-answer">Sim! O Casillas é um PWA (Progressive Web App) e pode ser instalado no iPhone. Você abre o link no Safari e adiciona à tela de início. Ele funciona como um app nativo.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Preciso de internet para usar?</div>
-        <div class="faq-answer">Não! O app funciona 100% offline após a instalação. Você pode usar em qualquer lugar, mesmo sem sinal.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Como ativo o app?</div>
-        <div class="faq-answer">Após a compra, você recebe um código de ativação no formato CASILLAS-XXXX-XXXX. Digite no app na tela de ativação e pronto!</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Posso usar em vários celulares?</div>
-        <div class="faq-answer">Sim! Cada código funciona em até 3 aparelhos diferentes. Se você trocar de celular, é só ativar com o mesmo código.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Tem teste grátis?</div>
-        <div class="faq-answer">Sim! Você tem 30 dias de teste gratuito com todos os 12 módulos liberados. Após esse período, o app exige ativação para continuar usando.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Como recebo o APK?</div>
-        <div class="faq-answer">Após a confirmação do pagamento via PIX, você recebe o arquivo APK e o código de ativação pelo WhatsApp. Basta instalar e ativar!</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">Tem garantia?</div>
-        <div class="faq-answer">Sim! Oferecemos 7 dias de garantia. Se você não gostar do app, devolvemos seu dinheiro.</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Planos -->
+    <section id="planos" class="bg-casillas-card py-20 border-y border-casillas">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-4">Planos e Licenças</h2>
+            <p class="text-secondary mb-12">Comece grátis e continue com uma licença vitalícia.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-casillas-input p-8 rounded-xl border border-casillas text-left">
+                    <h3 class="text-xl font-bold mb-2">Trial Gratuito</h3>
+                    <p class="text-3xl font-extrabold text-casillas-orange mb-4">30 dias</p>
+                    <ul class="space-y-3 text-sm text-secondary mb-6">
+                        <li>✅ Acesso a todos os 12 módulos</li>
+                        <li>✅ Cálculos ilimitados</li>
+                        <li>✅ Geração de código G</li>
+                        <li>✅ Funciona offline</li>
+                    </ul>
+                    <a href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/" target="_blank" class="btn-primary-casillas block w-full py-3 rounded-lg text-center">Começar Agora</a>
+                </div>
+                <div class="bg-casillas-input p-8 rounded-xl border-2 border-casillas-orange text-left relative">
+                    <span class="absolute top-0 right-0 bg-casillas-orange text-xs font-bold px-3 py-1 rounded-bl-lg text-black">RECOMENDADO</span>
+                    <h3 class="text-xl font-bold mb-2">Licença Vitalícia</h3>
+                    <p class="text-3xl font-extrabold text-casillas-orange mb-4">Pagamento Único</p>
+                    <ul class="space-y-3 text-sm text-secondary mb-6">
+                        <li>✅ Acesso ilimitado para sempre</li>
+                        <li>✅ Sem mensalidades</li>
+                        <li>✅ Associada à sua conta</li>
+                        <li>✅ Sem limite de aparelhos</li>
+                    </ul>
+                    <a href="https://wa.me/5519996816755" target="_blank" class="btn-outline-casillas block w-full py-3 rounded-lg text-center">Comprar via WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!-- CONTATO -->
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">💬 Fale conosco</h2>
-    <p class="section-subtitle">Estamos prontos para ajudar</p>
-    
-    <div class="contact-grid">
-      <a href="https://wa.me/5519996816755" class="contact-card" target="_blank">
-        <span class="icon">📱</span>
-        <div class="title">WhatsApp</div>
-        <div class="subtitle">+55 19 99681-6755</div>
-      </a>
-      <a href="https://chat.whatsapp.com/Idw4zuVdlOW1oZf3DZLZ75" class="contact-card" target="_blank">
-        <span class="icon">👥</span>
-        <div class="title">Grupo WhatsApp</div>
-        <div class="subtitle">Casillas - Usinagem BR</div>
-      </a>
-      <a href="https://instagram.com/casillas_usinagem.br" class="contact-card" target="_blank">
-        <span class="icon">📷</span>
-        <div class="title">Instagram</div>
-        <div class="subtitle">@casillas_usinagem.br</div>
-      </a>
-      <a href="https://youtube.com/@casillasusinagembr" class="contact-card" target="_blank">
-        <span class="icon">🎥</span>
-        <div class="title">YouTube</div>
-        <div class="subtitle">@casillasusinagembr</div>
-      </a>
-    </div>
-  </div>
-</section>
+    <!-- Consultoria -->
+    <section id="consultoria" class="max-w-4xl mx-auto px-4 py-20 text-center">
+        <h2 class="text-3xl font-bold mb-6">Precisa de ajuda com seus cálculos ou programação?</h2>
+        <p class="text-secondary mb-8 text-lg">O Casillas não é apenas um app. Oferecemos consultoria técnica, cursos e suporte especializado para torneiros, fresadores e programadores CNC.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://wa.me/5519996816755" target="_blank" class="inline-flex items-center justify-center gap-2 bg-green-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-green-500 transition">
+                💬 WhatsApp
+            </a>
+            <a href="https://www.instagram.com/casillas_usinagem.br" target="_blank" class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 text-white px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 transition">
+                📷 Instagram
+            </a>
+        </div>
+    </section>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <p>© 2026 <strong>Casillas App</strong> — Calculadora Técnica de Usinagem</p>
-    <p style="margin-top: 6px;">
-      <a href="https://wa.me/5519996816755">WhatsApp</a> • 
-      <a href="https://instagram.com/casillas_usinagem.br">Instagram</a> • 
-      <a href="https://youtube.com/@casillasusinagembr">YouTube</a>
-    </p>
-  </div>
-</footer>
-
-<!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/5519996816755" class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp">
-  💬
-</a>
-
-<!-- SCRIPT FAQ -->
-<script>
-  document.querySelectorAll('.faq-question').forEach((q) => {
-    q.addEventListener('click', () => {
-      const item = q.parentElement;
-      item.classList.toggle('open');
-    });
-  });
-</script>
+    <!-- Footer -->
+    <footer class="bg-black py-12 text-center border-t border-casillas">
+        <img src="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/icons/icon-192.png" alt="Casillas" class="w-12 h-12 rounded-lg mx-auto mb-3">
+        <p class="text-casillas-orange font-bold text-xl">Casillas</p>
+        <p class="text-muted mt-2 mb-1">Calculadora Técnica de Usinagem</p>
+        <p class="text-muted text-sm mb-6">Mais conhecimento. Mais precisão. Mais resultados.</p>
+        <div class="flex justify-center gap-4 mb-6">
+            <a href="https://www.instagram.com/casillas_usinagem.br" target="_blank" class="text-muted hover:text-casillas-orange transition">Instagram</a>
+            <a href="https://wa.me/5519996816755" target="_blank" class="text-muted hover:text-casillas-orange transition">WhatsApp</a>
+            <a href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/" target="_blank" class="text-muted hover:text-casillas-orange transition">App</a>
+        </div>
+        <p class="text-muted text-xs">© 2024 Casillas. Todos os direitos reservados.</p>
+    </footer>
 
 </body>
 </html>
