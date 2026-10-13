@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Casillas — Calculadora técnica de usinagem | 11 módulos + Consultoria</title>
+<meta name="description" content="Cálculos de usinagem sem conta na mão: 11 módulos técnicos, Guia CNC e Consultoria no celular. Teste grátis por 30 dias, sem cartão." />
+<meta name="theme-color" content="#0d1117" />
+<meta property="og:title" content="Casillas — cálculos de usinagem com precisão de oficina" />
+<meta property="og:description" content="11 módulos técnicos + Consultoria para torneiros, fresadores e ferramenteiros. Teste grátis por 30 dias." />
+<meta property="og:image" content="https://martinsdesiqueiraigor-art.github.io/Casillas-landing/v7/assets/cena-celular.webp" />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/svg+xml" href="./assets/simbolo.svg" />
+<style>
+  :root { --bg:#0d1117; --card:#161b22; --head:#1c2738; --line:#30363d; --text:#e6edf3; --soft:#9aa4af; --brand:#f0883e; --blue:#58a6ff; --green:#3fb950; }
+  * { box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  a { color:var(--blue); }
+  .wrap { max-width:1080px; margin:0 auto; padding:0 18px; }
+  header.top { position:sticky; top:0; z-index:5; background:rgba(28,39,56,.92); backdrop-filter:blur(8px); border-bottom:2px solid var(--brand); }
+  header.top .wrap { display:flex; align-items:center; gap:12px; height:60px; }
+  .logo { display:flex; align-items:center; gap:8px; color:var(--text); text-decoration:none; font-weight:800; font-size:21px; letter-spacing:-.3px; }
+  .logo img { height:28px; }
+  .logo small { display:block; font-size:9px; letter-spacing:2px; font-weight:600; color:var(--soft); margin-top:-3px; }
+  header.top nav { margin-left:auto; display:flex; gap:8px; }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:10px 20px; border-radius:11px;
+         font-weight:600; font-size:16px; text-decoration:none; border:1px solid var(--line); color:var(--text); background:transparent; cursor:pointer; }
+  .btn.primary { background:var(--brand); border-color:var(--brand); color:#0d1117; }
+  .btn.whats { background:#25d366; border-color:#25d366; color:#06210f; }
+  .btn.small { min-height:38px; padding:6px 14px; font-size:14px; }
+  /* Destaque */
+  .hero { padding:44px 0 34px; background:radial-gradient(1200px 500px at 70% -10%, rgba(88,166,255,.14), transparent 60%),
+          radial-gradient(800px 400px at 10% 0%, rgba(240,136,62,.15), transparent 60%); }
+  .hero .wrap { display:grid; grid-template-columns:1.05fr .95fr; gap:34px; align-items:center; }
+  .tag { display:inline-block; font-size:13px; font-weight:600; color:var(--brand); background:rgba(240,136,62,.12); border:1px solid rgba(240,136,62,.35);
+         padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+  h1 { font-size:clamp(30px,5vw,48px); line-height:1.1; margin:0 0 14px; letter-spacing:-.5px; }
+  h1 em { font-style:normal; color:var(--brand); }
+  .lead { font-size:18px; color:#c9d1d9; margin:0 0 22px; }
+  .ctas { display:flex; flex-wrap:wrap; gap:10px; }
+  .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .chips span { font-size:13px; color:#c9d1d9; border:1px solid var(--line); background:rgba(22,27,34,.7); padding:5px 10px; border-radius:99px; }
+  .chips span b { color:var(--green); margin-right:4px; }
+  .scene { position:relative; }
+  .scene .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 60px rgba(0,0,0,.6); max-width:420px; margin-left:auto; }
+  .scene .frame img { display:block; width:100%; }
+  /* Seções */
+  section { padding:46px 0; }
+  section.alt { background:#10151c; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  h2 { font-size:clamp(24px,3.6vw,32px); margin:0 0 8px; letter-spacing:-.3px; }
+  .sub { color:var(--soft); margin:0 0 26px; }
+  .pain { display:grid; grid-template-columns:1fr auto; gap:28px; align-items:center; }
+  .pain ul { list-style:none; padding:0; margin:0; display:grid; gap:10px; }
+  .pain li { display:flex; gap:12px; align-items:center; font-size:18px; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  .pain li::before { content:"✕"; color:var(--brand); font-weight:900; font-size:18px; }
+  .pain .better { margin-top:14px; font-size:18px; color:var(--brand); font-weight:700; }
+  .pain img { width:230px; filter:drop-shadow(0 14px 24px rgba(0,0,0,.55)); }
+  .mods { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .mod { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; }
+  .mod .n { font:800 13px/1 ui-monospace,Menlo,Consolas,monospace; color:var(--brand); }
+  .mod h3 { margin:8px 0 2px; font-size:16px; }
+  .mod p { margin:0; color:var(--soft); font-size:14px; }
+  .mod.hl { border-color:rgba(240,136,62,.6); background:linear-gradient(160deg, rgba(240,136,62,.12), var(--card) 60%); }
+  .pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:18px; }
+  .pillars div { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; }
+  .pillars b { color:var(--text); display:block; }
+  .pillars span { color:var(--soft); font-size:14px; }
+  .shot { border-radius:16px; border:1px solid var(--line); overflow:hidden; box-shadow:0 14px 40px rgba(0,0,0,.45); }
+  .shot img { display:block; width:100%; }
+  /* Oferta */
+  .offer { display:grid; grid-template-columns:1.1fr .9fr; gap:22px; align-items:center; }
+  .price-card { background:var(--card); border:2px solid var(--brand); border-radius:20px; padding:24px; position:relative; }
+  .ribbon { position:absolute; top:-14px; left:22px; background:var(--brand); color:#0d1117; font-weight:800; font-size:13px; padding:4px 12px; border-radius:99px; }
+  .price-card h3 { margin:6px 0 4px; font-size:22px; }
+  .old { color:var(--soft); text-decoration:line-through; font-size:18px; }
+  .price { font-size:52px; font-weight:900; letter-spacing:-1px; line-height:1; margin:6px 0 4px; }
+  .price small { font-size:20px; font-weight:700; }
+  .once { color:var(--green); font-weight:700; margin-bottom:14px; }
+  .price-card ul { margin:0 0 18px; padding-left:20px; color:#c9d1d9; }
+  .price-card li { margin:4px 0; }
+  .price-card .btn { width:100%; }
+  .offer .side { position:relative; text-align:center; }
+  .offer .side img { width:min(300px,80%); filter:drop-shadow(0 16px 28px rgba(0,0,0,.55)); }
+  .bubble { display:inline-block; background:#fff; color:#0d1117; font-weight:700; font-size:15px; padding:10px 14px; border-radius:14px;
+            box-shadow:0 8px 20px rgba(0,0,0,.4); position:relative; margin-bottom:10px; }
+  .bubble::after { content:""; position:absolute; left:50%; bottom:-8px; margin-left:-8px; border:8px solid transparent; border-top-color:#fff; border-bottom:0; }
+  /* Dúvidas */
+  details { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin-bottom:10px; }
+  summary { cursor:pointer; font-weight:600; }
+  details p { color:#c9d1d9; margin:10px 0 2px; }
+  /* Canais e ecossistema */
+  .social { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .social a { display:flex; align-items:center; gap:14px; padding:16px; border-radius:14px; border:1px solid var(--line); background:var(--card);
+              color:var(--text); text-decoration:none; }
+  .social a:hover { border-color:var(--brand); }
+  .social .ic { width:46px; height:46px; border-radius:12px; display:grid; place-items:center; flex:none; color:#fff; }
+  .social .yt .ic { background:#e02424; }
+  .social .ig .ic { background:linear-gradient(135deg,#f9a03f,#d62976 55%,#7a3fd1); }
+  .social .wa .ic { background:#25d366; color:#06210f; }
+  .social b { display:block; font-size:16px; }
+  .social span { color:var(--soft); font-size:14px; }
+  .eco { margin-top:14px; display:flex; gap:16px; align-items:center; padding:18px; border-radius:16px;
+         background:linear-gradient(120deg, rgba(240,136,62,.14), rgba(88,166,255,.10)); border:1px solid rgba(240,136,62,.35); }
+  .eco img { width:52px; flex:none; }
+  .eco h3 { margin:0 0 4px; font-size:18px; }
+  .eco p { margin:0; color:#c9d1d9; font-size:15px; }
+  .eco .btn { margin-left:auto; flex:none; }
+  .band { display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:center; padding:22px 24px; border-radius:18px;
+          background:var(--head); border:1px solid var(--line); overflow:hidden; }
+  .band img { width:150px; margin-bottom:-24px; align-self:end; filter:drop-shadow(0 10px 18px rgba(0,0,0,.45)); }
+  .band h3 { margin:0 0 6px; font-size:22px; }
+  .band p { margin:0 0 14px; color:#c9d1d9; }
+  footer { border-top:1px solid var(--line); padding:26px 0 40px; color:var(--soft); font-size:14px; }
+  footer .wrap { display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; }
+  footer a { color:var(--soft); }
+  .sticky-cta { display:none; }
+  @media (max-width: 900px) {
+    .hero .wrap, .offer { grid-template-columns:1fr; }
+    .scene .frame { margin:0 auto; max-width:360px; }
+    .mods { grid-template-columns:repeat(2,1fr); }
+    .pillars, .social { grid-template-columns:1fr; }
+  }
+  @media (max-width: 600px) {
+    header.top nav .hide-sm { display:none; }
+    .pain { grid-template-columns:1fr; }
+    .pain img { width:150px; justify-self:end; margin-top:-8px; }
+    .pain li { font-size:16px; }
+    .eco { flex-wrap:wrap; }
+    .eco .btn { margin-left:0; width:100%; }
+    .band { grid-template-columns:1fr; text-align:center; }
+    .band img { width:130px; justify-self:center; margin:0 0 -24px; order:2; }
+    .sticky-cta { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:6; gap:8px; padding:10px 12px calc(env(safe-area-inset-bottom,0px) + 10px);
+                  background:rgba(13,17,23,.94); border-top:1px solid var(--line); }
+    .sticky-cta .btn { flex:1; min-height:44px; padding:8px 10px; font-size:15px; }
+    body { padding-bottom:70px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#"><img src="./assets/simbolo.svg" alt="" /><span>Casillas<small>CALCULADORA TÉCNICA</small></span></a>
+    <nav>
+      <a class="btn small hide-sm" href="#modulos">Módulos</a>
+      <a class="btn small hide-sm" href="#oferta">Licença</a>
+      <a class="btn small primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Abrir o app</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="tag">Feito para quem vive de usinagem</span>
+      <h1>Cálculos de usinagem com <em>precisão de oficina.</em></h1>
+      <p class="lead">11 módulos técnicos e uma área de Consultoria para torneiros, fresadores e ferramenteiros —
+        rápido, direto no celular.</p>
+      <div class="ctas">
+        <a class="btn primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Testar grátis por 30 dias</a>
+        <a class="btn" href="#oferta">Comprar licença</a>
+      </div>
+      <div class="chips"><span><b>✓</b>30 dias grátis</span><span><b>✓</b>Sem cartão</span><span><b>✓</b>Cálculos no aparelho</span><span><b>✓</b>ISO / DIN</span></div>
+    </div>
+    <div class="scene"><div class="frame"><img src="./assets/cena-celular.webp" alt="Mascote do Casillas mostrando o app no celular, na oficina" /></div></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap pain">
+    <div>
+      <h2>Você perde tempo com isso?</h2>
+      <p class="sub">Toda oficina conhece essas contas.</p>
+      <ul>
+        <li>Calculando RPM na mão</li>
+        <li>Errando ângulo de cone</li>
+        <li>Procurando fórmula de rosca</li>
+        <li>Refazendo conta de tolerância</li>
+        <li>Chutando avanço de corte</li>
+        <li>Esquecendo conversão de medida</li>
+      </ul>
+      <div class="better">Tem jeito melhor →</div>
+    </div>
+    <img src="./assets/mascote-paquimetro.webp" alt="Mascote do Casillas com paquímetro" loading="lazy" />
+  </div>
+</section>
+
+<section class="alt" id="modulos">
+  <div class="wrap">
+    <h2>12 módulos. 1 app.</h2>
+    <p class="sub">Ferramentas para a rotina da usinagem: cálculos, referências e apoio à programação CNC.</p>
+    <div class="pillars">
+      <div><b>Local</b><span>Os cálculos rodam no seu aparelho.</span></div>
+      <div><b>Rápido</b><span>Feito para usar no celular, na máquina.</span></div>
+      <div><b>Técnico</b><span>Referências ISO e DIN.</span></div>
+    </div>
+    <div class="mods">
+      <div class="mod"><div class="n">01</div><h3>Trigonometria</h3><p>Ângulos e triângulos</p></div>
+      <div class="mod"><div class="n">02</div><h3>Conicidade</h3><p>Cones e ângulos</p></div>
+      <div class="mod"><div class="n">03</div><h3>Polígonos</h3><p>Geometria rápida</p></div>
+      <div class="mod"><div class="n">04</div><h3>Furação circular</h3><p>Coordenadas e PCD</p></div>
+      <div class="mod"><div class="n">05</div><h3>Roscas</h3><p>Métrica e outras</p></div>
+      <div class="mod"><div class="n">06</div><h3>Tolerâncias ISO</h3><p>Limites e ajustes</p></div>
+      <div class="mod"><div class="n">07</div><h3>Potência de corte</h3><p>Verificação em kW</p></div>
+      <div class="mod"><div class="n">08</div><h3>Chaveta DIN 6885</h3><p>Eixos e ranhuras</p></div>
+      <div class="mod"><div class="n">09</div><h3>Conicidades padrão</h3><p>Morse CM1–CM6</p></div>
+      <div class="mod"><div class="n">10</div><h3>Programação CNC</h3><p>RPM e avanço</p></div>
+      <div class="mod"><div class="n">11</div><h3>Guia CNC</h3><p>Códigos G explicados</p></div>
+      <div class="mod hl"><div class="n">12</div><h3>Consultoria</h3><p>Suporte técnico</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Aprenda na prática</h2>
+    <p class="sub">Cada módulo mostra o raciocínio por trás do cálculo, com exemplos visuais da oficina.</p>
+    <div class="shot"><img src="./assets/quadrinhos.webp" alt="Quadrinhos didáticos: conicidade, polígonos, furação, roscas, tolerâncias, chaveta, potência de corte e programação CNC" loading="lazy" /></div>
+    <div class="shot" style="margin-top:14px"><img src="./assets/cena-oficina.webp" alt="Mascotes do Casillas trabalhando no torno, com o app e no CNC" loading="lazy" /></div>
+  </div>
+</section>
+
+<section class="alt" id="oferta">
+  <div class="wrap offer">
+    <div class="price-card">
+      <span class="ribbon">Oferta de lançamento</span>
+      <h3>Licença vitalícia</h3>
+      <div class="old">de R$ 49,90</div>
+      <div class="price"><small>R$</small> 19,90</div>
+      <div class="once">Pagamento único · sem mensalidade</div>
+      <ul>
+        <li>Licença vitalícia, vinculada à sua conta</li>
+        <li>Sem limite de aparelhos</li>
+        <li>11 módulos técnicos + Consultoria</li>
+        <li>Pagamento por Pix e ativação pelo WhatsApp</li>
+      </ul>
+      <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20comprar%20a%20licen%C3%A7a%20vital%C3%ADcia%20do%20Casillas%20por%20R%24%2019%2C90." target="_blank" rel="noopener">Comprar por R$ 19,90 no WhatsApp</a>
+      <p style="color:var(--soft);font-size:14px;margin:12px 0 0;text-align:center">Quer testar antes? <a href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Use grátis por 30 dias</a>.</p>
+    </div>
+    <div class="side">
+      <div class="bubble">Pague uma vez, use para sempre!</div><br />
+      <img src="./assets/mascote-polegar.webp" alt="Mascote do Casillas fazendo joinha" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<section id="duvidas">
+  <div class="wrap">
+    <h2>Dúvidas rápidas</h2>
+    <p class="sub">Teste antes de comprar ou fale com a gente pelo WhatsApp.</p>
+    <details><summary>É assinatura?</summary><p>Não. É pagamento único: a licença é vitalícia.</p></details>
+    <details><summary>Funciona offline?</summary><p>Os cálculos rodam no aparelho. É preciso internet para entrar, validar o acesso e ativar a licença.</p></details>
+    <details><summary>Como recebo?</summary><p>Após a confirmação do Pix, você recebe o código de ativação.</p></details>
+    <details><summary>Em quantos aparelhos posso usar?</summary><p>Sem limite de aparelhos: a licença fica vinculada à sua conta.</p></details>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Acompanhe o Casillas</h2>
+    <p class="sub">Dicas de usinagem, novidades e atendimento.</p>
+    <div class="social">
+      <a class="yt" href="https://youtube.com/@casillasusinagembr" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" width="24" height="24"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9l5 3-5 3z" fill="#e02424"/></svg></span>
+        <div><b>YouTube</b><span>@casillasusinagembr</span></div></a>
+      <a class="ig" href="https://instagram.com/casillas_usinagem.br" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
+        <div><b>Instagram</b><span>@casillas_usinagem.br</span></div></a>
+      <a class="wa" href="https://wa.me/5519996816755" target="_blank" rel="noopener">
+        <span class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></svg></span>
+        <div><b>WhatsApp</b><span>(19) 99681-6755</span></div></a>
+    </div>
+    <div class="eco">
+      <img src="./assets/simbolo.svg" alt="" />
+      <div><h3>Do cálculo à programação CNC</h3>
+        <p>Conheça também o <b>Casillas Code</b>: editor e simulador CNC para Fanuc e Siemens, torno e fresa, com simulação passo a passo e folha de setup.</p></div>
+      <a class="btn" href="https://casillas-code.pages.dev/conheca" target="_blank" rel="noopener">Conhecer o Casillas Code</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="band">
+      <img src="./assets/mascote-polegar.webp" alt="" loading="lazy" />
+      <div><h3>Chega de calcular na mão.</h3>
+        <p>Teste o Casillas por 30 dias, sem cartão. Gostou? A licença vitalícia sai por R$ 19,90.</p>
+        <div class="ctas"><a class="btn primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Testar grátis</a>
+        <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20comprar%20a%20licen%C3%A7a%20vital%C3%ADcia%20do%20Casillas%20por%20R%24%2019%2C90." target="_blank" rel="noopener">Comprar R$ 19,90</a></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#" style="font-size:17px"><img src="./assets/simbolo.svg" alt="" style="height:22px" />Casillas</a>
+    <span>© 2026 · Igor Martins · Piracicaba/SP</span>
+    <a href="https://instagram.com/casillas_usinagem.br" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://youtube.com/@casillasusinagembr" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://wa.me/5519996816755" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="mailto:casillas.usinagem.br@gmail.com">casillas.usinagem.br@gmail.com</a>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a class="btn primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Testar grátis</a>
+  <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20comprar%20a%20licen%C3%A7a%20vital%C3%ADcia%20do%20Casillas%20por%20R%24%2019%2C90." target="_blank" rel="noopener">R$ 19,90</a>
+</div>
+</body>
+</html>
