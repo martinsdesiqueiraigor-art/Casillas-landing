@@ -207,6 +207,16 @@
     .with-mascot { display:block; }
     .band { grid-template-columns:1fr; padding:14px; }
   }
+  /* Rodada 3: nomes dos produtos em destaque, imagens menores, cards sem preço */
+  .c-app { color:var(--brand); }
+  .c-code { color:var(--blue); }
+  .hero .frame { max-width:440px; margin-left:auto; }
+  .combo .side img { width:min(190px,70%); }
+  .product .row .btn:first-of-type { margin-left:auto; }
+  @media (max-width: 600px) {
+    .hero .frame { max-height:150px; max-width:none; margin:0; }
+    .hero .frame img { height:150px; }
+  }
 </style>
 </head>
 <body>
@@ -227,8 +237,8 @@
     <div>
       <span class="tag">Casillas App + Casillas Code</span>
       <h1>Do cálculo à <em>programação CNC.</em></h1>
-      <p class="lead">Dois apps para quem vive de usinagem: o <b>Casillas App</b> resolve as contas da oficina e o
-        <b>Casillas Code</b> edita e simula seus programas CNC. No celular e no computador.</p>
+      <p class="lead">Dois apps para quem vive de usinagem: o <b class="c-app">Casillas App</b> resolve as contas da oficina e o
+        <b class="c-code">Casillas Code</b> edita e simula seus programas CNC. No celular e no computador.</p>
       <div class="ctas">
         <a class="btn primary" href="#combo">Ver o combo de lançamento</a>
         <a class="btn" href="#produtos">Conhecer os apps</a>
@@ -252,7 +262,6 @@
           <ul><li>Cálculos no aparelho</li><li>Sem limite de aparelhos</li><li>Consultor Técnico e Biblioteca</li></ul>
           <span class="trial">✓ 30 dias grátis, sem cartão</span>
           <div class="row">
-            <div class="price"><s class="was">R$ 59,90</s>R$ 29,90<small>licença vitalícia</small></div>
             <a class="btn" href="./app/">Conhecer</a>
             <a class="btn primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Testar grátis</a>
           </div>
@@ -267,7 +276,6 @@
           <ul><li>Simulação passo a passo</li><li>Erros marcados no código</li><li>Celular e computador (2 aparelhos)</li></ul>
           <span class="trial">✓ 14 dias grátis, sem cartão</span>
           <div class="row">
-            <div class="price"><s class="was">R$ 59,90</s>R$ 29,90<small>licença vitalícia</small></div>
             <a class="btn" href="./code/">Conhecer</a>
             <a class="btn primary" href="https://casillas-code.pages.dev/">Testar grátis</a>
           </div>

@@ -247,6 +247,24 @@
     .with-mascot { display:block; }
     .band { grid-template-columns:1fr; padding:14px; }
   }
+  /* Rodada 3: benefícios, telas em quadrinhos com ampliação, módulos resumidos */
+  .c-app { color:var(--brand); }
+  .pain li::before { content:"✓"; color:var(--green); }
+  .panel img { cursor:zoom-in; }
+  .zoom-view { position:fixed; inset:0; z-index:50; background:rgba(0,0,0,.82); display:grid; place-items:center; padding:16px; cursor:zoom-out; }
+  .zoom-view img { width:min(78vw,380px); max-height:86vh; object-fit:contain; border-radius:14px; box-shadow:0 20px 60px rgba(0,0,0,.7); }
+  @media (max-width: 600px) {
+    .panels { grid-template-columns:repeat(3,1fr) !important; gap:8px; }
+    .panel .shot { max-width:none; border-radius:10px; }
+    .panel figcaption { font-size:0; margin-top:4px; text-align:center; }
+    .panel figcaption .pn { display:none; }
+    .panel figcaption b { font-size:12px; margin:0; }
+    #por-dentro .acc-body > .shot { display:none; }
+    #modulos .pillars, #modulos .mod p, #modulos .mod .n { display:none; }
+    #modulos .mods { grid-template-columns:1fr 1fr; gap:6px; }
+    #modulos .mod { padding:7px 10px; border-radius:10px; }
+    #modulos .mod h3 { margin:0; font-size:13px; }
+  }
 </style>
 </head>
 <body>
@@ -284,17 +302,17 @@
 <section>
   <div class="wrap pain">
     <div>
-      <h2>Você perde tempo com isso?</h2>
-      <p class="sub">Toda oficina conhece essas contas.</p>
+      <h2>Pare de perder tempo. Seja eficiente com o <span class="c-app">Casillas App</span>.</h2>
+      <p class="sub">As contas da oficina, resolvidas em segundos.</p>
       <ul>
-        <li>Calculando RPM na mão</li>
-        <li>Errando ângulo de cone</li>
-        <li>Procurando fórmula de rosca</li>
-        <li>Refazendo conta de tolerância</li>
-        <li>Chutando avanço de corte</li>
-        <li>Esquecendo conversão de medida</li>
+        <li>RPM e avanço em segundos</li>
+        <li>Ângulo de cone sem erro</li>
+        <li>Medidas de rosca na mão</li>
+        <li>Tolerâncias ISO na hora</li>
+        <li>Potência de corte conferida</li>
+        <li>Furação circular pronta</li>
       </ul>
-      <div class="better">Tem jeito melhor →</div>
+      <div class="better">Tudo isso em um só app →</div>
     </div>
     <img src="./assets/mascote-paquimetro.webp" alt="Mascote do Casillas com paquímetro" loading="lazy" />
   </div>
@@ -457,6 +475,17 @@
     gatilho.addEventListener('click', function (ev) {
       if (ev.target.closest('a')) return;
       el.classList.toggle('open');
+    });
+  });
+</script>
+<script>
+  // Toque numa tela do app para ver maior; toque de novo para fechar
+  document.querySelectorAll('.panel img').forEach(function (img) {
+    img.addEventListener('click', function () {
+      var v = document.createElement('div'); v.className = 'zoom-view';
+      var big = document.createElement('img'); big.src = img.src; big.alt = img.alt;
+      v.appendChild(big); v.addEventListener('click', function () { v.remove(); });
+      document.documentElement.appendChild(v);   // fora do body para não herdar a escala do celular
     });
   });
 </script>
