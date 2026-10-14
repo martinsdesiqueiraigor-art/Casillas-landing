@@ -228,6 +228,15 @@
     .hero .frame { max-height:150px; max-width:none; margin:0; }
     .hero .frame img { height:150px; }
   }
+  /* Topo no celular: 3 botões curtos numa linha e imagem inteira, sem corte */
+  .btn .sm { display:none; }
+  @media (max-width: 600px) {
+    .hero .ctas { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .hero .ctas .btn { padding:8px 6px; gap:5px; white-space:nowrap; }
+    .hero .ctas .btn .lg { display:none; }
+    .hero .ctas .btn .sm { display:inline; }
+    .hero .frame, .hero .frame img { max-height:none !important; height:auto !important; }
+  }
 </style>
 </head>
 <body>
@@ -251,9 +260,9 @@
       <p class="lead">Dois apps para quem vive de usinagem: o <a class="c-app" href="./app/">Casillas App</a> resolve as contas da oficina e o
         <a class="c-code" href="./code/">Casillas Code</a> edita e simula seus programas CNC. No celular e no computador.</p>
       <div class="ctas">
-        <a class="btn primary" href="#combo">Ver o combo de lançamento</a>
-        <a class="btn o-app" href="./app/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8.5 7h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg>Ver o Casillas App</a>
-        <a class="btn o-code" href="./code/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Ver o Casillas Code</a>
+        <a class="btn primary" href="#combo"><span class="lg">Ver o combo de lançamento</span><span class="sm">Combo</span></a>
+        <a class="btn o-app" href="./app/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8.5 7h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg><span class="lg">Ver o Casillas App</span><span class="sm">App</span></a>
+        <a class="btn o-code" href="./code/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg><span class="lg">Ver o Casillas Code</span><span class="sm">Code</span></a>
       </div>
     </div>
     <div class="frame"><img src="./app/assets/cena-oficina.webp" alt="Mascotes do Casillas no torno, com o app no celular e no CNC" /></div>
