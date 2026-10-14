@@ -135,6 +135,15 @@
     .sticky-cta .btn { flex:1; min-height:44px; padding:8px 10px; font-size:15px; }
     body { padding-bottom:70px; }
   }
+  .panels { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .panel { margin:0; }
+  .panel img { height:auto; }
+  .panel figcaption { margin-top:10px; color:#c9d1d9; font-size:15px; }
+  .panel figcaption b { display:block; color:var(--text); font-size:17px; margin-bottom:2px; }
+  .panel .pn { display:inline-block; font:800 12px/1 ui-monospace,Menlo,Consolas,monospace; color:#0d1117; background:var(--brand);
+               padding:4px 7px; border-radius:6px; margin-bottom:6px; }
+  @media (max-width: 900px) { .panels { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width: 600px) { .panels { grid-template-columns:1fr; } .panel .shot { max-width:360px; margin:0 auto; } }
 </style>
 </head>
 <body>
@@ -143,6 +152,7 @@
   <div class="wrap">
     <a class="logo" href="#"><img src="./assets/simbolo.svg" alt="" /><span>Casillas<small>CALCULADORA TÉCNICA</small></span></a>
     <nav>
+      <a class="btn small hide-sm" href="#por-dentro">O app</a>
       <a class="btn small hide-sm" href="#modulos">Módulos</a>
       <a class="btn small hide-sm" href="#oferta">Licença</a>
       <a class="btn small primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Abrir o app</a>
@@ -212,12 +222,25 @@
   </div>
 </section>
 
-<section>
+<section id="por-dentro">
   <div class="wrap">
-    <h2>Aprenda na prática</h2>
-    <p class="sub">Cada módulo mostra o raciocínio por trás do cálculo, com exemplos visuais da oficina.</p>
-    <div class="shot"><img src="./assets/quadrinhos.webp" alt="Quadrinhos didáticos: conicidade, polígonos, furação, roscas, tolerâncias, chaveta, potência de corte e programação CNC" loading="lazy" /></div>
-    <div class="shot" style="margin-top:14px"><img src="./assets/cena-oficina.webp" alt="Mascotes do Casillas trabalhando no torno, com o app e no CNC" loading="lazy" /></div>
+    <h2>Conheça o app por dentro</h2>
+    <p class="sub">Calcule, consulte, aprenda e aplique na prática — tudo no celular.</p>
+    <div class="panels">
+      <figure class="panel"><div class="shot"><img src="./assets/painel-1.webp" alt="Casillas: tela do app Casillas" loading="lazy" width="682" height="1490" /></div>
+        <figcaption><span class="pn">1/6</span><b>Casillas</b>Seu parceiro técnico na usinagem: calcule, consulte, aprenda e aplique na prática, em um só app.</figcaption></figure>
+      <figure class="panel"><div class="shot"><img src="./assets/painel-2.webp" alt="Home: tela do app Casillas" loading="lazy" width="682" height="1490" /></div>
+        <figcaption><span class="pn">2/6</span><b>Home</b>Acesso rápido às principais calculadoras e ao campo para tirar dúvidas.</figcaption></figure>
+      <figure class="panel"><div class="shot"><img src="./assets/painel-3.webp" alt="Consultor Técnico: tela do app Casillas" loading="lazy" width="682" height="1490" /></div>
+        <figcaption><span class="pn">3/6</span><b>Consultor Técnico</b>Pergunte como você fala no dia a dia e receba o passo a passo: explicação do ciclo, parâmetros, exemplo e alertas.</figcaption></figure>
+      <figure class="panel"><div class="shot"><img src="./assets/painel-4.webp" alt="Calculadoras: tela do app Casillas" loading="lazy" width="682" height="1490" /></div>
+        <figcaption><span class="pn">4/6</span><b>Calculadoras</b>Trigonometria, conicidade, polígonos, furação circular, roscas, tolerâncias ISO e mais, com busca.</figcaption></figure>
+      <figure class="panel"><div class="shot"><img src="./assets/painel-5.webp" alt="Guia CNC: tela do app Casillas" loading="lazy" width="682" height="1490" /></div>
+        <figcaption><span class="pn">5/6</span><b>Guia CNC</b>Códigos e ciclos (G76, G83, G81…) separados por máquina e operação, do código ao exemplo prático.</figcaption></figure>
+      <figure class="panel"><div class="shot"><img src="./assets/painel-6.webp" alt="Biblioteca Técnica: tela do app Casillas" loading="lazy" width="682" height="1490" /></div>
+        <figcaption><span class="pn">6/6</span><b>Biblioteca Técnica</b>Metrologia, programação CNC, processos, ferramentas e materiais, para consultar e aprender no seu ritmo.</figcaption></figure>
+    </div>
+    <div class="shot" style="margin-top:18px"><img src="./assets/cena-oficina.webp" alt="Mascotes do Casillas trabalhando no torno, com o app e no CNC" loading="lazy" /></div>
   </div>
 </section>
 
