@@ -118,6 +118,38 @@
     .sticky-cta .btn { flex:1; min-height:44px; padding:8px 10px; font-size:15px; }
     body { padding-bottom:70px; }
   }
+  /* Celular: tudo mais compacto (também com fonte do sistema aumentada) */
+  @media (max-width: 600px) {
+    body { font-size:15px; line-height:1.5; }
+    header.top .wrap { height:52px; gap:8px; }
+    header.top img, .logo img { height:24px; }
+    .logo { font-size:18px; }
+    .logo small { display:none; }
+    header.top .btn.small { min-height:34px; padding:4px 11px; font-size:13px; white-space:nowrap; }
+    .hero { padding:26px 0 22px; }
+    .tag { font-size:12px; margin-bottom:10px; }
+    h1 { font-size:clamp(25px,7vw,30px); margin-bottom:10px; }
+    h2 { font-size:22px; }
+    .lead { font-size:16px; margin-bottom:18px; }
+    section { padding:32px 0; }
+    .sub { margin-bottom:18px; }
+    .btn { min-height:42px; padding:8px 16px; font-size:15px; }
+    .product .body { padding:14px; gap:8px; }
+    .product h3 { font-size:21px; }
+    .product .price { font-size:23px; }
+    .big { font-size:42px; }
+    .compare { font-size:14px; }
+    .compare th, .compare td { padding:8px 4px; }
+    .compare td:first-child { white-space:nowrap; }
+    .compare tr.hl td:first-child { white-space:normal; }
+    .sticky-cta { padding:6px 10px calc(env(safe-area-inset-bottom,0px) + 6px) !important; transition:transform .25s; }
+    .sticky-cta .btn { min-height:38px !important; padding:6px 8px !important; font-size:14px !important; }
+    .sticky-cta.off { transform:translateY(110%); }
+    .sticky-cta .btn { white-space:nowrap; }
+    .sticky-cta .btn.whats { flex:1.4; }
+    .combo { padding:20px 14px; }
+    body { padding-bottom:54px; }
+  }
 </style>
 </head>
 <body>
@@ -126,9 +158,9 @@
   <div class="wrap">
     <a class="logo" href="./"><img src="./assets/simbolo.svg" alt="" /><span>Casillas<small>ECOSSISTEMA TÉCNICO</small></span></a>
     <nav>
-      <a class="btn small hide-sm" href="./app/">App</a>
-      <a class="btn small hide-sm" href="./code/">Code</a>
-      <a class="btn small primary" href="#combo">Combo R$ 49,90</a>
+      <a class="btn small" href="./app/">App</a>
+      <a class="btn small" href="./code/">Code</a>
+      <a class="btn small primary hide-sm" href="#combo">Combo R$ 49,90</a>
     </nav>
   </div>
 </header>
@@ -266,5 +298,13 @@
   <a class="btn" href="#produtos">Os apps</a>
   <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20o%20combo%20Casillas%20App%20%2B%20Casillas%20Code%20por%20R%24%2049%2C90." target="_blank" rel="noopener">Combo R$ 49,90</a>
 </div>
+<script>
+  // Barra de compra do celular some quando a seção de compra já está na tela
+  (function () {
+    var bar = document.querySelector('.sticky-cta'), alvo = document.querySelector('#combo');
+    if (!bar || !alvo || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (e) { bar.classList.toggle('off', e[0].isIntersecting); }).observe(alvo);
+  })();
+</script>
 </body>
 </html>

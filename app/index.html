@@ -151,6 +151,41 @@
   .combo-mini span { font-size:14px; color:#c9d1d9; }
   .combo-mini strong { color:var(--brand); font-size:16px; }
   .combo-mini .btn { margin-left:auto; flex:none; width:auto !important; }
+  /* Celular: tudo mais compacto (também com fonte do sistema aumentada) */
+  @media (max-width: 600px) {
+    body { font-size:15px; line-height:1.5; }
+    header.top .wrap { height:52px; gap:8px; }
+    header.top img, .logo img { height:24px; }
+    .logo { font-size:18px; }
+    .logo small { display:none; }
+    header.top .btn.small { min-height:34px; padding:4px 11px; font-size:13px; white-space:nowrap; }
+    .hero { padding:26px 0 22px; }
+    .tag { font-size:12px; margin-bottom:10px; }
+    h1 { font-size:clamp(25px,7vw,30px); margin-bottom:10px; }
+    h2 { font-size:22px; }
+    .lead { font-size:16px; margin-bottom:18px; }
+    section { padding:32px 0; }
+    .sub { margin-bottom:18px; }
+    .btn { min-height:42px; padding:8px 16px; font-size:15px; }
+    .product .body { padding:14px; gap:8px; }
+    .product h3 { font-size:21px; }
+    .product .price { font-size:23px; }
+    .big { font-size:42px; }
+    .compare { font-size:14px; }
+    .compare th, .compare td { padding:8px 4px; }
+    .compare td:first-child { white-space:nowrap; }
+    .compare tr.hl td:first-child { white-space:normal; }
+    .sticky-cta { padding:6px 10px calc(env(safe-area-inset-bottom,0px) + 6px) !important; transition:transform .25s; }
+    .sticky-cta .btn { min-height:38px !important; padding:6px 8px !important; font-size:14px !important; }
+    .sticky-cta.off { transform:translateY(110%); }
+    .sticky-cta .btn { white-space:nowrap; }
+    .sticky-cta .btn.whats { flex:1.4; }
+    .combo { padding:20px 14px; }
+    .mods { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    .mod { padding:10px; min-width:0; overflow-wrap:anywhere; }
+    .mod h3 { font-size:15px; }
+    body { padding-bottom:54px; }
+  }
 </style>
 </head>
 <body>
@@ -342,5 +377,13 @@
   <a class="btn primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Testar grátis</a>
   <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20comprar%20a%20licen%C3%A7a%20vital%C3%ADcia%20do%20Casillas%20App%20por%20R%24%2029%2C90." target="_blank" rel="noopener">R$ 29,90</a>
 </div>
+<script>
+  // Barra de compra do celular some quando a seção de compra já está na tela
+  (function () {
+    var bar = document.querySelector('.sticky-cta'), alvo = document.querySelector('#oferta');
+    if (!bar || !alvo || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (e) { bar.classList.toggle('off', e[0].isIntersecting); }).observe(alvo);
+  })();
+</script>
 </body>
 </html>
