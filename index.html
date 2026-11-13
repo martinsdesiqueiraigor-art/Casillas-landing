@@ -235,8 +235,17 @@ function toggle(id, force){
   try { history.replaceState(null,'', cur ? '#'+cur.id : location.pathname+location.search); } catch(e){}
   if (cur) cur.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
-function fromHash(){ var h = location.hash.slice(1); if (h && document.getElementById(h) && root.contains(document.getElementById(h))) toggle(h, true); }
-window.addEventListener('hashchange', fromHash); fromHash();
+function fromHash(initial){
+  var h = location.hash.slice(1);
+  if (h && document.getElementById(h) && root.contains(document.getElementById(h))) {
+    toggle(h, true);
+    if (initial === true) { // carga inicial: rola até o cartão depois que as imagens assentarem
+      var go = function(){ setTimeout(function(){ document.getElementById(h).scrollIntoView({block:'start'}); }, 150); };
+      if (document.readyState === 'complete') go(); else window.addEventListener('load', go, {once:true});
+    }
+  }
+}
+window.addEventListener('hashchange', fromHash); fromHash(true);
 </script>
 </body>
 </html>
