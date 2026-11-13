@@ -3,405 +3,234 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Casillas — do cálculo à programação CNC</title>
-<meta name="description" content="Casillas App (calculadoras de usinagem) e Casillas Code (editor e simulador CNC). Licença vitalícia, pagamento único. Combo de lançamento por R$ 49,90." />
+<title>Casillas — plataforma para quem vive de usinagem CNC</title>
+<meta name="description" content="Editor e simulador CNC, CAM, Macro, Academy e calculadoras de usinagem. Tudo da plataforma Casillas em um só lugar." />
 <meta name="theme-color" content="#0d1117" />
-<meta property="og:title" content="Casillas — do cálculo à programação CNC" />
-<meta property="og:description" content="Dois apps para quem vive de usinagem. Combo de lançamento: de R$ 99,90 por R$ 49,90, licença vitalícia." />
-<meta property="og:image" content="https://casillas.com.br/app/assets/cena-oficina.webp" />
-<meta property="og:type" content="website" />
-<link rel="canonical" href="https://casillas.com.br/" />
-<link rel="icon" type="image/svg+xml" href="./assets/simbolo.svg" />
+<link rel="icon" type="image/svg+xml" href="assets/simbolo.svg" />
 <style>
   :root { --bg:#0d1117; --card:#161b22; --head:#1c2738; --line:#30363d; --text:#e6edf3; --soft:#9aa4af; --brand:#f0883e; --blue:#58a6ff; --green:#3fb950; }
   * { box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
+  html { scroll-behavior:smooth; scroll-padding-top:72px; }
   body { margin:0; background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
   a { color:var(--blue); }
   .wrap { max-width:1080px; margin:0 auto; padding:0 18px; }
-  header.top { position:sticky; top:0; z-index:5; background:rgba(28,39,56,.92); backdrop-filter:blur(8px); border-bottom:2px solid var(--brand); }
+  .skip { position:absolute; left:-999px; } .skip:focus { left:8px; top:8px; background:#fff; color:#000; padding:8px 12px; z-index:20; }
+  header.top { position:sticky; top:0; z-index:10; background:rgba(28,39,56,.94); backdrop-filter:blur(8px); border-bottom:2px solid var(--brand); }
   header.top .wrap { display:flex; align-items:center; gap:12px; height:60px; }
   .logo { display:flex; align-items:center; gap:8px; color:var(--text); text-decoration:none; font-weight:800; font-size:21px; letter-spacing:-.3px; }
   .logo img { height:28px; }
-  .logo small { display:block; font-size:9px; letter-spacing:2px; font-weight:600; color:var(--soft); margin-top:-3px; }
-  header.top nav { margin-left:auto; display:flex; gap:8px; }
-  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:10px 20px; border-radius:11px;
+  header.top nav { margin-left:auto; display:flex; gap:6px; align-items:center; }
+  header.top nav a.l { color:var(--text); text-decoration:none; padding:8px 10px; border-radius:8px; font-size:15px; }
+  header.top nav a.l:hover { background:rgba(255,255,255,.08); }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:46px; padding:10px 20px; border-radius:11px; font:inherit;
          font-weight:600; font-size:16px; text-decoration:none; border:1px solid var(--line); color:var(--text); background:transparent; cursor:pointer; text-align:center; }
+  .btn:hover { border-color:var(--brand); }
   .btn.primary { background:var(--brand); border-color:var(--brand); color:#0d1117; }
   .btn.whats { background:#25d366; border-color:#25d366; color:#06210f; }
   .btn.small { min-height:38px; padding:6px 14px; font-size:14px; }
-  .hero { padding:44px 0 34px; background:radial-gradient(1200px 500px at 70% -10%, rgba(88,166,255,.14), transparent 60%),
-          radial-gradient(800px 400px at 10% 0%, rgba(240,136,62,.15), transparent 60%); }
+  .hero { padding:44px 0 34px; background:radial-gradient(1200px 500px at 70% -10%, rgba(88,166,255,.14), transparent 60%), radial-gradient(800px 400px at 10% 0%, rgba(240,136,62,.15), transparent 60%); }
   .hero .wrap { display:grid; grid-template-columns:1fr 1fr; gap:34px; align-items:center; }
-  .tag { display:inline-block; font-size:13px; font-weight:600; color:var(--brand); background:rgba(240,136,62,.12); border:1px solid rgba(240,136,62,.35);
-         padding:4px 10px; border-radius:99px; margin-bottom:12px; }
-  h1 { font-size:clamp(32px,5.4vw,52px); line-height:1.08; margin:0 0 14px; letter-spacing:-.6px; }
+  .tag { display:inline-block; font-size:13px; font-weight:600; color:var(--brand); background:rgba(240,136,62,.12); border:1px solid rgba(240,136,62,.35); padding:4px 10px; border-radius:99px; margin-bottom:12px; }
+  h1 { font-size:clamp(32px,5.4vw,50px); line-height:1.08; margin:0 0 14px; letter-spacing:-.6px; }
   h1 em { font-style:normal; color:var(--brand); }
   .lead { font-size:18px; color:#c9d1d9; margin:0 0 22px; }
   .ctas { display:flex; flex-wrap:wrap; gap:10px; }
-  .frame { border-radius:22px; overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 60px rgba(0,0,0,.6); }
+  .frame { border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:0 20px 60px rgba(0,0,0,.6); background:#0b0f15; }
   .frame img { display:block; width:100%; }
   section { padding:46px 0; }
   section.alt { background:#10151c; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   h2 { font-size:clamp(24px,3.6vw,34px); margin:0 0 8px; letter-spacing:-.3px; }
   .sub { color:var(--soft); margin:0 0 26px; }
-  /* Produtos */
-  .products { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-  .product { background:var(--card); border:1px solid var(--line); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; }
-  .product .pic { aspect-ratio:16/10; overflow:hidden; background:#0b0f15; border-bottom:1px solid var(--line); }
-  .product .pic img { width:100%; height:100%; object-fit:cover; object-position:top; display:block; }
-  .product .body { padding:18px; display:flex; flex-direction:column; gap:10px; flex:1; }
-  .product .kind { font-size:13px; font-weight:700; color:var(--brand); letter-spacing:.3px; text-transform:uppercase; }
-  .product h3 { margin:0; font-size:24px; }
-  .product p { margin:0; color:#c9d1d9; }
-  .product ul { margin:0; padding-left:20px; color:#c9d1d9; font-size:15px; }
-  .product .row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:auto; padding-top:8px; }
-  .product .price { font-size:26px; font-weight:900; margin-right:auto; }
-  .product .price small { display:block; font-size:12px; font-weight:600; color:var(--soft); }
-  .trial { font-size:13px; color:var(--green); font-weight:700; }
-  /* Combo */
-  .combo { display:grid; grid-template-columns:1.2fr .8fr; gap:22px; align-items:center; background:linear-gradient(130deg, rgba(240,136,62,.16), rgba(88,166,255,.10));
-           border:2px solid var(--brand); border-radius:22px; padding:26px; position:relative; }
-  .ribbon { position:absolute; top:-14px; left:22px; background:var(--brand); color:#0d1117; font-weight:800; font-size:13px; padding:4px 12px; border-radius:99px; }
-  .combo h2 { margin-top:6px; }
-  .was { display:block; font-size:13px; font-weight:600; color:var(--soft); }
-  td .was { display:inline; margin-right:4px; }
-  .old { color:var(--soft); text-decoration:line-through; font-size:20px; }
-  .big { font-size:58px; font-weight:900; letter-spacing:-1.5px; line-height:1; margin:4px 0 6px; }
-  .big small { font-size:22px; }
-  .once { color:var(--green); font-weight:700; margin-bottom:12px; }
-  .combo ul { margin:0 0 18px; padding-left:20px; color:#c9d1d9; }
-  .combo li { margin:4px 0; }
-  .combo .side { text-align:center; }
-  .combo .side img { width:min(280px,85%); filter:drop-shadow(0 16px 28px rgba(0,0,0,.55)); }
-  .bubble { display:inline-block; background:#fff; color:#0d1117; font-weight:800; font-size:16px; padding:10px 14px; border-radius:14px;
-            box-shadow:0 8px 20px rgba(0,0,0,.4); position:relative; margin-bottom:10px; }
-  .bubble::after { content:""; position:absolute; left:50%; bottom:-8px; margin-left:-8px; border:8px solid transparent; border-top-color:#fff; border-bottom:0; }
-  .compare { width:100%; border-collapse:collapse; margin-top:22px; font-size:15px; }
-  .compare th, .compare td { border-bottom:1px solid var(--line); padding:10px 8px; text-align:left; }
-  .compare th { color:var(--soft); font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:.3px; }
-  .compare td:last-child, .compare th:last-child { text-align:right; white-space:nowrap; }
-  .compare tr.hl td { color:var(--brand); font-weight:800; }
-  /* Passos */
-  .steps { counter-reset:s; display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-  .step { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; position:relative; }
-  .step::before { counter-increment:s; content:counter(s); position:absolute; top:-12px; left:14px; width:28px; height:28px; border-radius:50%;
-                  background:var(--brand); color:#0d1117; display:grid; place-items:center; font-weight:800; }
-  .step h3 { margin:8px 0 4px; font-size:16px; }
-  .step p { margin:0; color:#c9d1d9; font-size:15px; }
+  .pills { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+  .pill { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  .pill b { display:block; margin-bottom:2px; } .pill span { color:var(--soft); font-size:14px; }
+
+  /* módulos */
+  .mods { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; align-items:start; }
+  .mod { background:var(--card); border:1px solid var(--line); border-left:4px solid var(--c); border-radius:16px; overflow:hidden; }
+  .mod.open { grid-column:1 / -1; border-color:var(--c); }
+  .mh { display:flex; gap:14px; align-items:center; padding:14px 16px; }
+  .mh img { width:56px; height:56px; border-radius:14px; flex:none; background:#0b0f15; }
+  .mh h3 { margin:0; font-size:18px; line-height:1.2; }
+  .mh p { margin:2px 0 0; color:var(--soft); font-size:14px; line-height:1.35; }
+  .badge { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.3px; text-transform:uppercase; padding:2px 8px; border-radius:99px; border:1px solid var(--line); color:var(--soft); margin-left:6px; vertical-align:middle; }
+  .badge.ok { color:var(--green); border-color:rgba(63,185,80,.5); }
+  .more { margin:0 16px 14px; }
+  .more .btn { width:100%; }
+  .mod .panel { display:none; padding:4px 18px 20px; border-top:1px solid var(--line); }
+  .mod.open .panel { display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:start; padding-top:18px; }
+  .mod.open .more .btn { background:var(--head); }
+  .panel h4 { margin:0 0 8px; font-size:15px; text-transform:uppercase; letter-spacing:.4px; color:var(--c); }
+  .panel ul { margin:0 0 14px; padding-left:20px; color:#c9d1d9; } .panel li { margin:4px 0; }
+  .panel .note { font-size:13px; color:var(--soft); margin:10px 0 0; }
+  .shots { display:grid; gap:10px; } .shots.two { grid-template-columns:1fr 1fr; }
+  .shots .frame { border-radius:12px; box-shadow:none; }
+  .ph { border:1px dashed var(--line); border-radius:12px; min-height:140px; display:grid; place-items:center; text-align:center; color:var(--soft); font-size:14px; padding:16px; }
+  .ph img { width:72px; height:72px; border-radius:16px; display:block; margin:0 auto 8px; opacity:.9; }
+
+  .steps { counter-reset:s; display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .step { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:18px 16px 16px; position:relative; }
+  .step::before { counter-increment:s; content:counter(s); position:absolute; top:-12px; left:14px; width:28px; height:28px; border-radius:50%; background:var(--brand); color:#0d1117; display:grid; place-items:center; font-weight:800; }
+  .step h3 { margin:6px 0 4px; font-size:16px; } .step p { margin:0; color:#c9d1d9; font-size:15px; }
+  details.faq { background:var(--card); border:1px solid var(--line); border-radius:12px; margin:0 0 10px; }
+  details.faq summary { cursor:pointer; padding:14px 16px; font-weight:600; list-style:none; }
+  details.faq summary::-webkit-details-marker { display:none; }
+  details.faq summary::after { content:"+"; float:right; color:var(--brand); font-size:20px; line-height:1; }
+  details.faq[open] summary::after { content:"–"; }
+  details.faq p { margin:0; padding:0 16px 16px; color:#c9d1d9; }
+  .warn { background:rgba(240,136,62,.08); border:1px solid rgba(240,136,62,.35); border-radius:12px; padding:14px 16px; color:#c9d1d9; font-size:15px; }
+  .cta-final { text-align:center; } .cta-final .ctas { justify-content:center; }
   .social { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-  .social a { display:flex; align-items:center; gap:14px; padding:16px; border-radius:14px; border:1px solid var(--line); background:var(--card);
-              color:var(--text); text-decoration:none; }
+  .social a { display:flex; align-items:center; gap:14px; padding:16px; border-radius:14px; border:1px solid var(--line); background:var(--card); color:var(--text); text-decoration:none; }
   .social a:hover { border-color:var(--brand); }
-  .social .ic { width:46px; height:46px; border-radius:12px; display:grid; place-items:center; flex:none; color:#fff; }
-  .social .yt .ic { background:#e02424; }
-  .social .ig .ic { background:linear-gradient(135deg,#f9a03f,#d62976 55%,#7a3fd1); }
-  .social .wa .ic { background:#25d366; color:#06210f; }
-  .social b { display:block; font-size:16px; }
-  .social span { color:var(--soft); font-size:14px; }
-  footer { border-top:1px solid var(--line); padding:26px 0 40px; color:var(--soft); font-size:14px; }
-  footer .wrap { display:flex; flex-wrap:wrap; gap:14px 24px; align-items:center; }
-  footer a { color:var(--soft); }
-  .sticky-cta { display:none; }
-  @media (max-width: 900px) {
-    .hero .wrap, .products, .combo { grid-template-columns:1fr; }
-    .steps { grid-template-columns:1fr 1fr; }
-    .social { grid-template-columns:1fr; }
+  .social .ic { width:46px; height:46px; border-radius:12px; display:grid; place-items:center; flex:none; color:#fff; font-weight:800; }
+  .social .yt .ic { background:#e02424; } .social .ig .ic { background:linear-gradient(135deg,#f9a03f,#d62976 55%,#7a3fd1); } .social .wa .ic { background:#25d366; color:#06210f; }
+  .social b { display:block; } .social span { color:var(--soft); font-size:14px; }
+  footer { border-top:1px solid var(--line); padding:26px 0 90px; color:var(--soft); font-size:14px; }
+  .fab { position:fixed; right:16px; bottom:16px; z-index:12; width:56px; height:56px; border-radius:50%; background:#25d366; color:#06210f; display:grid; place-items:center; text-decoration:none; font-weight:900; box-shadow:0 8px 24px rgba(0,0,0,.5); }
+  @media (max-width:900px) {
+    .hero .wrap { grid-template-columns:1fr; } .pills { grid-template-columns:1fr 1fr; } .mods { grid-template-columns:1fr 1fr; }
+    .mod.open .panel { grid-template-columns:1fr; } .social { grid-template-columns:1fr; }
   }
-  @media (max-width: 600px) {
-    header.top nav .hide-sm { display:none; }
-    .steps { grid-template-columns:1fr; }
-    .big { font-size:48px; }
-    .combo { padding:22px 18px; }
-    .sticky-cta { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:6; gap:8px; padding:10px 12px calc(env(safe-area-inset-bottom,0px) + 10px);
-                  background:rgba(13,17,23,.94); border-top:1px solid var(--line); }
-    .sticky-cta .btn { flex:1; min-height:44px; padding:8px 10px; font-size:15px; }
-    body { padding-bottom:70px; }
-  }
-  /* Celular: tudo mais compacto (também com fonte do sistema aumentada) */
-  @media (max-width: 600px) {
-    body { font-size:15px; line-height:1.5; }
-    header.top .wrap { height:52px; gap:8px; }
-    header.top img, .logo img { height:24px; }
-    .logo { font-size:18px; }
-    .logo small { display:none; }
-    header.top .btn.small { min-height:34px; padding:4px 11px; font-size:13px; white-space:nowrap; }
-    .hero { padding:26px 0 22px; }
-    .tag { font-size:12px; margin-bottom:10px; }
-    h1 { font-size:clamp(25px,7vw,30px); margin-bottom:10px; }
-    h2 { font-size:22px; }
-    .lead { font-size:16px; margin-bottom:18px; }
-    section { padding:32px 0; }
-    .sub { margin-bottom:18px; }
-    .btn { min-height:42px; padding:8px 16px; font-size:15px; }
-    .product .body { padding:14px; gap:8px; }
-    .product h3 { font-size:21px; }
-    .product .price { font-size:23px; }
-    .big { font-size:42px; }
-    .compare { font-size:14px; }
-    .compare th, .compare td { padding:8px 4px; }
-    .compare td:first-child { white-space:nowrap; }
-    .compare tr.hl td:first-child { white-space:normal; }
-    .sticky-cta { padding:6px 10px calc(env(safe-area-inset-bottom,0px) + 6px) !important; transition:transform .25s; }
-    .sticky-cta .btn { min-height:38px !important; padding:6px 8px !important; font-size:14px !important; }
-    .sticky-cta.off { transform:translateY(110%); }
-    .sticky-cta .btn { white-space:nowrap; }
-    .sticky-cta .btn.whats { flex:1.4; }
-    .combo { padding:20px 14px; }
-    body { padding-bottom:54px; }
-  }
-  /* Celular: escala geral menor (texto, espaços e cartões) para rolar menos */
-  html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
-  @media (max-width: 600px) {
-    body { zoom:.86; }
-    section { padding:24px 0; }
-    .hero { padding:18px 0 16px; }
-    .sub { margin-bottom:14px; }
-  }
-  /* Celular, rodada 2: mais compacto e com seções que abrem com um toque */
-  @media (max-width: 600px) {
-    body { zoom:.8; }
-    section { padding:20px 0; }
-    h2 { font-size:21px; }
-    .sub { margin-bottom:12px; }
-    /* Seções recolhidas: título vira uma barra tocável */
-    .wrap.acc > .acc-t { display:flex; justify-content:space-between; align-items:center; gap:10px; cursor:pointer; margin:0;
-      background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; font-size:18px; }
-    .wrap.acc > .acc-t::after { content:"+"; flex:none; width:28px; height:28px; border-radius:50%; display:grid; place-items:center;
-      background:var(--brand); color:#0d1117; font-weight:900; font-size:20px; line-height:1; }
-    .wrap.acc.open > .acc-t::after { content:"−"; }
-    .wrap.acc:not(.open) > .acc-body { display:none; }
-    .wrap.acc > .acc-body { margin-top:12px; }
-    /* Cartões que abrem com um toque (só o título aparece) */
-    .card.acc { display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; padding:10px 12px; cursor:pointer; }
-    .card.acc .ico { width:32px; height:32px; font-size:13px; margin:0; flex:none; }
-    .card.acc h3 { flex:1; margin:0; font-size:15px; }
-    .card.acc::after { content:"+"; order:1; color:var(--brand); font-weight:900; font-size:20px; line-height:1; }
-    .card.acc.open::after { content:"−"; }
-    .card.acc > p, .card.acc > .codes { order:2; flex-basis:100%; }
-    .card.acc:not(.open) > p, .card.acc:not(.open) > .codes { display:none; }
-    .grid, .two { gap:8px !important; }
-    /* Passos em linhas compactas */
-    .steps { gap:8px; }
-    .step { padding:8px 12px 8px 46px; }
-    .step::before { top:50%; left:10px; transform:translateY(-50%); }
-    .step h3 { margin:0; font-size:15px; }
-    .step p { font-size:13px; }
-    /* Redes lado a lado, só ícone e nome */
-    .social { display:grid; grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:1fr; gap:8px; }
-    .social a { flex-direction:column; text-align:center; padding:10px 4px; gap:6px; }
-    .social .ic { width:38px; height:38px; }
-    .social b { font-size:13px; }
-    .social span:not(.ic) { display:none; }
-    .eco { padding:12px; gap:10px; }
-    .eco img { width:36px; }
-    /* Mascotes decorativos e imagens grandes */
-    .combo .side, .offer .side, .pain img, .with-mascot img, .band img { display:none; }
-    .hero .frame { max-height:190px; }
-    .hero .frame img { height:190px; object-fit:cover; object-position:center 35%; }
-    .product .pic { aspect-ratio:16/8; }
-    .product ul { display:none; }
-    .pain ul { grid-template-columns:1fr 1fr; gap:6px; }
-    .pain li { font-size:13px; padding:8px 10px; gap:6px; }
-    .pain li::before { font-size:13px; }
-    .with-mascot { display:block; }
-    .band { grid-template-columns:1fr; padding:14px; }
-  }
-  /* Rodada 3: nomes dos produtos em destaque, imagens menores, cards sem preço */
-  .c-app { color:var(--brand); }
-  .c-code { color:var(--blue); }
-  a.c-app, a.c-code { font-weight:700; text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
-  /* Botões com a cor de cada produto */
-  .btn .i { flex:none; }
-  .btn.b-app { background:var(--brand); border-color:var(--brand); color:#0d1117; }
-  .btn.b-code { background:var(--blue); border-color:var(--blue); color:#0d1117; }
-  .btn.o-app { border-color:var(--brand); color:var(--brand); }
-  .btn.o-code { border-color:var(--blue); color:var(--blue); }
-  header.top .btn.small { gap:5px; }
-  @media (max-width: 600px) {
-    .sticky-cta .btn.b-app, .sticky-cta .btn.b-code { flex:.8; gap:5px; }
-  }
-  .hero .frame { max-width:440px; margin-left:auto; }
-  .combo .side img { width:min(190px,70%); }
-  .product .row .btn:first-of-type { margin-left:auto; }
-  @media (max-width: 600px) {
-    .hero .frame { max-height:150px; max-width:none; margin:0; }
-    .hero .frame img { height:150px; }
-  }
-  /* Topo no celular: 3 botões curtos numa linha e imagem inteira, sem corte */
-  .btn .sm { display:none; }
-  @media (max-width: 600px) {
-    .hero .ctas { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
-    .hero .ctas .btn { padding:8px 6px; gap:5px; white-space:nowrap; }
-    .hero .ctas .btn .lg { display:none; }
-    .hero .ctas .btn .sm { display:inline; }
-    .hero .frame, .hero .frame img { max-height:none !important; height:auto !important; }
+  @media (max-width:600px) {
+    header.top nav a.l { display:none; } .mods, .steps, .pills { grid-template-columns:1fr; }
   }
 </style>
 </head>
 <body>
+<a class="skip" href="#modulos">Pular para o conteúdo</a>
+<header class="top"><div class="wrap">
+  <a class="logo" href="#topo"><img src="assets/simbolo.svg" alt="" />Casillas</a>
+  <nav>
+    <a class="l" href="#modulos">Módulos</a><a class="l" href="#como">Como começar</a><a class="l" href="#faq">Perguntas</a>
+    <a class="btn primary small" href="https://code.casillas.com.br/">Testar o Code</a>
+  </nav>
+</div></header>
 
-<header class="top">
-  <div class="wrap">
-    <a class="logo" href="./"><img src="./assets/simbolo.svg" alt="" /><span>Casillas<small>ECOSSISTEMA TÉCNICO</small></span></a>
-    <nav>
-      <a class="btn small b-app" href="./app/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8.5 7h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg>App</a>
-      <a class="btn small b-code" href="./code/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Code</a>
-      <a class="btn small whats hide-sm" href="#combo">Combo R$ 49,90</a>
-    </nav>
-  </div>
-</header>
-
-<div class="hero">
-  <div class="wrap">
-    <div>
-      <span class="tag">Casillas App + Casillas Code</span>
-      <h1>Do cálculo à <em>programação CNC.</em></h1>
-      <p class="lead">Dois apps para quem vive de usinagem: o <a class="c-app" href="./app/">Casillas App</a> resolve as contas da oficina e o
-        <a class="c-code" href="./code/">Casillas Code</a> edita e simula seus programas CNC. No celular e no computador.</p>
-      <div class="ctas">
-        <a class="btn primary" href="#combo"><span class="lg">Ver o combo de lançamento</span><span class="sm">Combo</span></a>
-        <a class="btn o-app" href="./app/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8.5 7h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg><span class="lg">Ver o Casillas App</span><span class="sm">App</span></a>
-        <a class="btn o-code" href="./code/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg><span class="lg">Ver o Casillas Code</span><span class="sm">Code</span></a>
-      </div>
-    </div>
-    <div class="frame"><img src="./app/assets/cena-oficina.webp" alt="Mascotes do Casillas no torno, com o app no celular e no CNC" /></div>
-  </div>
-</div>
-
-<section id="produtos">
-  <div class="wrap">
-    <h2>Escolha o seu</h2>
-    <p class="sub">Cada app funciona sozinho. Juntos, cobrem do cálculo ao programa.</p>
-    <div class="products">
-      <div class="product">
-        <div class="pic"><img src="./app/assets/cena-celular.webp" alt="Casillas App no celular" loading="lazy" /></div>
-        <div class="body">
-          <span class="kind">Calculadora técnica de usinagem</span>
-          <h3>Casillas App</h3>
-          <p>11 módulos técnicos e Consultoria: trigonometria, conicidade, roscas, tolerâncias ISO, furação circular, Guia CNC e mais.</p>
-          <ul><li>Cálculos no aparelho</li><li>Sem limite de aparelhos</li><li>Consultor Técnico e Biblioteca</li></ul>
-          <span class="trial">✓ 30 dias grátis, sem cartão</span>
-          <div class="row">
-            <a class="btn" href="./app/">Conhecer</a>
-            <a class="btn primary" href="https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/">Testar grátis</a>
-          </div>
-        </div>
-      </div>
-      <div class="product">
-        <div class="pic"><img src="./code/assets/computador.webp" alt="Casillas Code no computador" loading="lazy" /></div>
-        <div class="body">
-          <span class="kind">Editor e simulador CNC</span>
-          <h3>Casillas Code</h3>
-          <p>Escreva, confira e simule programas Fanuc e Siemens, de torno e fresa, com cada passe dos ciclos e folha de setup em PDF.</p>
-          <ul><li>Simulação passo a passo</li><li>Erros marcados no código</li><li>Celular e computador (2 aparelhos)</li></ul>
-          <span class="trial">✓ 14 dias grátis, sem cartão</span>
-          <div class="row">
-            <a class="btn" href="./code/">Conhecer</a>
-            <a class="btn primary" href="https://casillas-code.pages.dev/">Testar grátis</a>
-          </div>
-        </div>
-      </div>
+<main id="topo">
+<div class="hero"><div class="wrap">
+  <div>
+    <span class="tag">Plataforma Casillas</span>
+    <h1>Da peça ao programa: tudo para quem <em>vive de usinagem</em></h1>
+    <p class="lead">Editor e simulador CNC, CAM, macros, aulas e calculadoras. Ferramentas feitas por quem está no chão de fábrica, para Fanuc e Siemens.</p>
+    <div class="ctas">
+      <a class="btn primary" href="https://code.casillas.com.br/">Testar o Casillas Code</a>
+      <a class="btn" href="#modulos">Ver os módulos</a>
     </div>
   </div>
-</section>
+  <div class="frame"><img src="assets/computador.webp" alt="Casillas Code no computador: editor de G-code com simulação" /></div>
+</div></div>
 
-<section class="alt" id="combo">
-  <div class="wrap">
-    <div class="combo">
-      <span class="ribbon">Lançamento · tempo limitado</span>
-      <div>
-        <h2>Combo Casillas: App + Code</h2>
-        <div class="old">de R$ 99,90</div>
-        <div class="big"><small>R$</small> 49,90</div>
-        <div class="once">Licença vitalícia dos dois · pagamento único</div>
-        <ul>
-          <li>Casillas App: 11 módulos técnicos + Consultoria, sem limite de aparelhos</li>
-          <li>Casillas Code: editor e simulador CNC, em até 2 aparelhos</li>
-          <li>Todas as atualizações dos dois incluídas</li>
-          <li>Pagamento por Pix e ativação pelo WhatsApp</li>
-        </ul>
-        <a class="btn whats" style="width:100%" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20o%20combo%20Casillas%20App%20%2B%20Casillas%20Code%20por%20R%24%2049%2C90." target="_blank" rel="noopener">Quero o combo por R$ 49,90</a>
-        <table class="compare">
-          <tr><th>Opção</th><th>Preço</th></tr>
-          <tr><td>Casillas App</td><td><s class="was">R$ 59,90</s> R$ 29,90</td></tr>
-          <tr><td>Casillas Code</td><td><s class="was">R$ 59,90</s> R$ 29,90</td></tr>
-          <tr class="hl"><td>Combo App + Code</td><td><s class="was">R$ 99,90</s> R$ 49,90</td></tr>
-        </table>
-      </div>
-      <div class="side">
-        <div class="bubble">Leve os dois!</div><br />
-        <img src="./app/assets/mascote-polegar.webp" alt="Mascote do Casillas fazendo joinha" loading="lazy" />
-      </div>
-    </div>
+<section><div class="wrap">
+  <div class="pills">
+    <div class="pill"><b>Fanuc e Siemens</b><span>Fresa e torno</span></div>
+    <div class="pill"><b>Simulação 3D</b><span>Veja o programa antes da máquina</span></div>
+    <div class="pill"><b>No navegador</b><span>Sem instalar nada para começar</span></div>
+    <div class="pill"><b>Em português</b><span>Feito para a oficina brasileira</span></div>
   </div>
-</section>
+</div></section>
 
-<section>
-  <div class="wrap">
-    <h2>Como comprar</h2>
-    <p class="sub">Simples e direto, com pagamento por Pix.</p>
-    <div class="steps">
-      <div class="step"><h3>Teste grátis</h3><p>Crie sua conta no app e use tudo antes de pagar.</p></div>
-      <div class="step"><h3>Chame no WhatsApp</h3><p>Diga o e-mail da conta e se quer um app ou o combo.</p></div>
-      <div class="step"><h3>Pague por Pix</h3><p>Envie o comprovante na mesma conversa.</p></div>
-      <div class="step"><h3>Pronto</h3><p>A licença é ativada na sua conta, normalmente no mesmo dia útil.</p></div>
-    </div>
+<section class="alt" id="modulos"><div class="wrap">
+  <h2>Módulos da plataforma</h2>
+  <p class="sub">Toque em "Conheça" para ver o que cada módulo faz.</p>
+  <div class="mods" id="mods"></div>
+</div></section>
+
+<section id="como"><div class="wrap">
+  <h2>Como começar</h2>
+  <p class="sub">Três passos, sem complicação.</p>
+  <div class="steps">
+    <div class="step"><h3>Crie sua conta</h3><p>Com e-mail e senha. Uma conta serve para toda a plataforma.</p></div>
+    <div class="step"><h3>Teste grátis</h3><p>Abra o Casillas Code no navegador e use com seus programas.</p></div>
+    <div class="step"><h3>Escolha o módulo</h3><p>Editor, CAM, Macro, Academy ou calculadoras: use o que precisar.</p></div>
   </div>
-</section>
+</div></section>
 
-<section class="alt">
-  <div class="wrap">
-    <h2>Acompanhe o Casillas</h2>
-    <p class="sub">Dicas de usinagem e programação CNC, novidades e atendimento.</p>
-    <div class="social">
-      <a class="yt" href="https://youtube.com/@casillasusinagembr" target="_blank" rel="noopener">
-        <span class="ic"><svg viewBox="0 0 24 24" width="24" height="24"><rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"/><path d="M10 9l5 3-5 3z" fill="#e02424"/></svg></span>
-        <div><b>YouTube</b><span>@casillasusinagembr</span></div></a>
-      <a class="ig" href="https://instagram.com/casillas_usinagem.br" target="_blank" rel="noopener">
-        <span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span>
-        <div><b>Instagram</b><span>@casillas_usinagem.br</span></div></a>
-      <a class="wa" href="https://wa.me/5519996816755" target="_blank" rel="noopener">
-        <span class="ic"><svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></svg></span>
-        <div><b>WhatsApp</b><span>(19) 99681-6755</span></div></a>
-    </div>
+<section class="alt" id="faq"><div class="wrap">
+  <h2>Perguntas frequentes</h2><p class="sub">&nbsp;</p>
+  <details class="faq"><summary>Preciso instalar algo?</summary><p>Não para começar. O Code, o CAM rápido, a Academy e o Macro abrem no navegador. O CAM completo e o Assist são para Windows.</p></details>
+  <details class="faq"><summary>Quais controles são atendidos?</summary><p>Fanuc e Siemens, para fresa e torno.</p></details>
+  <details class="faq"><summary>A simulação garante que não há colisão?</summary><p>Não. A simulação é 3 eixos, em grade de alturas, e serve de apoio. Ela não substitui a verificação do programa antes de rodar na máquina.</p></details>
+  <details class="faq"><summary>Funciona no celular?</summary><p>Sim, as telas se adaptam ao celular. Para editar programas grandes, o computador é mais confortável.</p></details>
+  <details class="faq"><summary>Tem suporte?</summary><p>Sim, pelo WhatsApp e pelo e-mail abaixo.</p></details>
+  <div class="warn" style="margin-top:16px">Todo programa gerado ou editado aqui deve ser conferido por um profissional qualificado antes de ser usado na máquina.</div>
+</div></section>
+
+<section class="cta-final"><div class="wrap">
+  <h2>Pronto para testar?</h2>
+  <p class="sub">Abra o Casillas Code agora ou fale com a gente.</p>
+  <div class="ctas">
+    <a class="btn primary" href="https://code.casillas.com.br/">Testar o Casillas Code</a>
+    <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Casillas.">Falar no WhatsApp</a>
   </div>
-</section>
+</div></section>
 
-<footer>
-  <div class="wrap">
-    <a class="logo" href="./" style="font-size:17px"><img src="./assets/simbolo.svg" alt="" style="height:22px" />Casillas</a>
-    <span>© 2026 · Igor Martins · Piracicaba/SP</span>
-    <a href="./app/">Casillas App</a>
-    <a href="./code/">Casillas Code</a>
-    <a href="https://casillas-code.pages.dev/termos.html">Termos de uso</a>
-    <a href="https://casillas-code.pages.dev/privacidade.html">Privacidade</a>
-    <a href="mailto:casillas.usinagem.br@gmail.com">casillas.usinagem.br@gmail.com</a>
+<section class="alt"><div class="wrap">
+  <div class="social">
+    <a class="yt" href="https://youtube.com/@casillasusinagembr"><span class="ic">▶</span><div><b>YouTube</b><span>@casillasusinagembr</span></div></a>
+    <a class="ig" href="https://instagram.com/casillas_usinagem.br"><span class="ic">◎</span><div><b>Instagram</b><span>@casillas_usinagem.br</span></div></a>
+    <a class="wa" href="https://wa.me/5519996816755"><span class="ic">✆</span><div><b>WhatsApp</b><span>(19) 99681-6755</span></div></a>
   </div>
-</footer>
+</div></section>
+</main>
 
-<div class="sticky-cta">
-  <a class="btn b-app" href="./app/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M8.5 7h7M8.5 12h.01M12 12h.01M15.5 12h.01M8.5 16h.01M12 16h.01M15.5 16h.01"/></svg>App</a>
-  <a class="btn b-code" href="./code/"><svg class="i" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>Code</a>
-  <a class="btn whats" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Quero%20o%20combo%20Casillas%20App%20%2B%20Casillas%20Code%20por%20R%24%2049%2C90." target="_blank" rel="noopener">Combo R$ 49,90</a>
-</div>
+<footer><div class="wrap">Casillas · Piracicaba/SP · casillas.usinagem.br@gmail.com<br>Produto independente, sem vínculo com fabricantes de máquinas ou de controles CNC citados.</div></footer>
+<a class="fab" href="https://wa.me/5519996816755?text=Ol%C3%A1%21%20Tenho%20uma%20d%C3%BAvida%20sobre%20o%20Casillas." aria-label="Falar no WhatsApp">WA</a>
+
 <script>
-  // Barra de compra do celular some quando a seção de compra já está na tela
-  (function () {
-    var bar = document.querySelector('.sticky-cta'), alvo = document.querySelector('#combo');
-    if (!bar || !alvo || !('IntersectionObserver' in window)) return;
-    new IntersectionObserver(function (e) { bar.classList.toggle('off', e[0].isIntersecting); }).observe(alvo);
-  })();
-</script>
-<script>
-  // Seções e cartões que abrem e fecham com um toque (no celular)
-  document.querySelectorAll('.acc').forEach(function (el) {
-    var gatilho = el.querySelector(':scope > .acc-t') || el;
-    gatilho.addEventListener('click', function (ev) {
-      if (ev.target.closest('a')) return;
-      el.classList.toggle('open');
-    });
-  });
+/* Módulos: ordem e estado iguais aos do app. Rascunho: textos a revisar. */
+var CODE_URL = 'https://code.casillas.com.br/';
+var MODS = [
+ {id:'code', n:'Casillas Code', t:'Editor G-code e M-code', c:'#e36bf0', st:'ok', btn:['Testar grátis', CODE_URL],
+  feats:['Editor com realce de código para Fanuc e Siemens','Simulação 3D de fresa e torno','Estatísticas e gráfico do programa','Funciona no navegador, no PC e no celular'],
+  who:'Programadores e operadores que querem conferir o programa antes da máquina.',
+  shots:['computador-siemens.webp','celular-codigo.webp','celular-grafico.webp']},
+ {id:'cam', n:'Casillas CAM', t:'Do desenho ao programa 2,5D e 4º eixo', c:'#4d8dff', st:'win', btn:['Testar o CAM rápido', CODE_URL],
+  feats:['Do desenho ao programa em 2,5D','4º eixo','CAM rápido no navegador; CAM completo no Windows'], who:'Quem quer gerar o programa a partir do desenho sem sair da plataforma.'},
+ {id:'academy', n:'Casillas Academy', t:'Formação profissional', c:'#3ddc84', st:'ok', btn:['Abrir a Academy', CODE_URL],
+  feats:['Aulas práticas de programação CNC','Exercícios para treinar no simulador','Conteúdo em português, passo a passo'], who:'Quem está aprendendo ou quer se profissionalizar em CNC.'},
+ {id:'macro', n:'Casillas Macro', t:'Programação paramétrica e lógica', c:'#9b7bff', st:'ok', btn:['Abrir o Macro', CODE_URL],
+  feats:['Geradores de programa com prévia 3D','Programação paramétrica e lógica','Menos retrabalho em peças repetitivas'], who:'Quem faz famílias de peças e quer reaproveitar programas.'},
+ {id:'otimizador', n:'Casillas Otimizador', t:'Encontra repetições e simplifica o programa', c:'#ffb454', st:'ok', btn:['Abrir', CODE_URL],
+  feats:['Encontra trechos repetidos','Sugere programas mais curtos e limpos'], who:'Programas longos vindos do CAM.', rev:true},
+ {id:'calculadoras', n:'Casillas Calculadoras', t:'Cálculos técnicos de usinagem', c:'#ff9a4a', st:'ok', btn:['Abrir as calculadoras','https://martinsdesiqueiraigor-art.github.io/Casillas_app_2/'],
+  feats:['Calculadoras técnicas de usinagem','Guia CNC e Consultor','Instala no celular como aplicativo (PWA)'], who:'Quem precisa de cálculo rápido na bancada ou na máquina.'},
+ {id:'assist', n:'Casillas Assist', t:'Sugestões e orçamento a partir do desenho', c:'#ffd24a', st:'win',
+  feats:['Sugestões e orçamento a partir do desenho','Para Windows'], who:'Quem orça peças e quer ganhar tempo.'},
+ {id:'biblioteca', n:'Casillas Biblioteca CNC', t:'Banco de dados G-code', c:'#ee5a45', st:'soon',
+  feats:['Banco de dados de G-code'], who:'Em desenvolvimento.'},
+ {id:'loja', n:'Casillas Loja', t:'Loja de ferramentas', c:'#2fd0c8', st:'soon',
+  feats:['Loja de ferramentas'], who:'Em desenvolvimento.', rev:true}
+];
+var BADGE = {ok:['', ''], win:['Windows',''], soon:['Em breve','']};
+var root = document.getElementById('mods');
+MODS.forEach(function(m){
+  var el = document.createElement('article'); el.className='mod'; el.id=m.id; el.style.setProperty('--c', m.c);
+  var b = BADGE[m.st][0] ? '<span class="badge">'+BADGE[m.st][0]+'</span>' : '';
+  var shots = m.shots ? '<div class="shots'+(m.shots.length>1?'':'')+'">'+m.shots.map(function(s){return '<div class="frame"><img loading="lazy" src="assets/'+s+'" alt="Captura de tela do '+m.n+'" /></div>';}).join('')+'</div>'
+    : '<div class="ph"><div><img src="assets/ic-'+m.id+'.webp" alt="" />Capturas de tela em breve</div></div>';
+  el.innerHTML =
+   '<div class="mh"><img src="assets/ic-'+m.id+'.webp" alt="" /><div><h3>'+m.n+b+'</h3><p>'+m.t+'</p></div></div>'+
+   '<div class="more"><button class="btn small" aria-expanded="false" aria-controls="p-'+m.id+'">Conheça</button></div>'+
+   '<div class="panel" id="p-'+m.id+'" role="region" aria-label="'+m.n+'"><div><h4>O que faz</h4><ul>'+m.feats.map(function(f){return '<li>'+f+'</li>'}).join('')+'</ul><h4>Para quem</h4><p style="margin:0 0 14px;color:#c9d1d9">'+m.who+'</p>'+
+   (m.btn?'<a class="btn primary" href="'+m.btn[1]+'">'+m.btn[0]+'</a>':'<span class="badge">'+(m.st==='soon'?'Em breve':'Somente no Windows')+'</span>')+
+   (m.rev?'<p class="note">Texto a confirmar.</p>':'')+'</div>'+shots+'</div>';
+  root.appendChild(el);
+  el.querySelector('button').addEventListener('click', function(){ toggle(m.id); });
+});
+function toggle(id, force){
+  var all = root.querySelectorAll('.mod');
+  for (var i=0;i<all.length;i++){
+    var a = all[i], btn = a.querySelector('button');
+    var open = a.id===id && (force===true || !a.classList.contains('open'));
+    a.classList.toggle('open', open); btn.setAttribute('aria-expanded', open?'true':'false'); btn.textContent = open?'Fechar':'Conheça';
+  }
+  var cur = root.querySelector('.mod.open');
+  try { history.replaceState(null,'', cur ? '#'+cur.id : location.pathname+location.search); } catch(e){}
+  if (cur) cur.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+function fromHash(){ var h = location.hash.slice(1); if (h && document.getElementById(h) && root.contains(document.getElementById(h))) toggle(h, true); }
+window.addEventListener('hashchange', fromHash); fromHash();
 </script>
 </body>
 </html>
